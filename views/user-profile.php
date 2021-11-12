@@ -3,17 +3,16 @@
 * Soft UI Design System - v1.0.5
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/soft-design-system
+* Product Page:  https://www.creative-tim.com/product/soft-ui-design-system 
 * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
 
-* Coded by Creative Tim
+Coded by www.creative-tim.com
 
-=========================================================
+ =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
 
 <head>
   <meta charset="utf-8" />
@@ -21,7 +20,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <title>
-    Pembayaran
+    My Profile
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -33,14 +32,11 @@
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="assets/css/soft-design-system.css?v=1.0.5" rel="stylesheet" />
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
-<body class="forms-sections">
+<body class="blog-author bg-gray-100">
+  
+
   <!-- Navbar Light -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
     <div class="container">
@@ -718,149 +714,287 @@
             </a> -->
           </li>
           <li class="nav-item my-auto ms-3 ms-lg-0">
-            <a href="user-profile.html" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0"> My Profile </a>
+            <a href="pembayaran.html" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0"> Bayar </a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
   <!-- End Navbar -->
+  <!-- START Testimonials w/ user image & text & info -->
+  <section class="py-sm-7 position-relative">
+  <?php
+    require_once('../config.php');
 
-  <div class="page-header">
-    <div class="position-absolute fixed-top ms-auto w-50 h-100 rounded-3 z-index-0 d-none d-sm-none d-md-block me-n4" style="background-image: url(assets/img/ivancik.jpg); background-size: cover;">
-    </div>
-    <div class="container py-5">
+    $username = $_GET['username'];
+
+    $queryCekUsername = "SELECT `NIM`, `nama_mahasiswa`, `tgl_lahir`, `username`, `email`, `password`, `sosmed`, universitas.nama_univ AS nama_univ,`foto_profil` 
+    FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ WHERE username='$username'";
+
+    $cekId1 = mysqli_query($koneksi, $queryCekUsername);
+    $data = mysqli_fetch_array($cekId1);
+  ?>
+    <div class="container">
       <div class="row">
-        <div class="col-lg-7 d-flex justify-content-center flex-column">
-          <div class="card card-body d-flex justify-content-center shadow-lg p-5 blur align-items-center">
-            <h3 class="text-center">Form Pembayaran</h3>
-            <form role="form" id="contact-form" method="post" autocomplete="off">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <label>NIM</label>
-                    <div class="input-group mb-4">
-                      <input class="form-control" placeholder="" aria-label="First Name..." type="text">
-                    </div>
-                  </div>
-                  <div class="col-md-6 ps-2">
-                    <label>Nama</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="" aria-label="Last Name...">
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-4">
-                  <!-- <div class="input-group-prepend"> -->
-                    <label>Jenis Pembayaran</label>
-                  <!-- </div> -->
-                  <select class="custom-select" id="inputGroupSelect01" name="id_univ">
-                      <option selected>Pilihlah salah satu</option>
-                      <option value="UKT" name="id_univ">Uang Kuliah Tungal</option>
-                      <option value="UP" name="id_univ">Uang Pangkal</option>
-                  </select>
-                  <!-- <label>Jenis Pembayaran</label>
-                  <div class="input-group">
-                    <input type="email" class="form-control" placeholder="">
-                  </div> -->
-                </div>
-                <div class="mb-4">
-                  <label>Nominal</label>
-                  <div class="input-group">
-                    <input type="email" class="form-control" placeholder="">
-                  </div>
-                </div>
-                <div class="mb-4">
-                  <label for="Nama">Bukti Pembayaran</label>
-                    <div class="custom-file">
-                      <input name="foto" type="file"  class="custom-file-input" id="customFile">
-                      <label class="custom-file-label" for="customFile">Pilihlah Gambar</label>
-                    </div>
-                </div>
-
-                <div class="form-group mb-4">
-                  <label>Catatan</label>
-                  <textarea name="message" class="form-control" id="message" rows="4"></textarea>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <!-- <div class="form-check form-switch mb-4">
-                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
-                      <label class="form-check-label" for="flexSwitchCheckDefault">I agree to the <a href="javascript:;" class="text-dark"><u>Terms and Conditions</u></a>.</label>
-                    </div> -->
-                  </div>
-                  <div class="col-md-12">
-                    <button type="submit" class="btn bg-gradient-dark w-100">Lakukan Pembayaran</button>
-                  </div>
+        <div class="col-12 mx-auto">
+          <div class="row py-lg-7 py-5">
+            <div class="col-lg-3 col-md-5 position-relative my-auto">
+              <img class="img border-radius-lg max-width-200 w-100 position-relative z-index-2" src="assets/img/bruce-mars.jpg" alt="bruce">
+            </div>
+            <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h4 class="mb-0"><?php echo $data['nama_mahasiswa'] ?></h4>
+                <div class="d-block">
+                  <a href="edit-profile.php?username=<?php echo $data['username'] ?>">
+                    <button type="button" class="btn btn-sm btn-outline-info text-nowrap mb-0">Edit Profile</button>
+                  </a>
                 </div>
               </div>
-            </form>
+              <div class="row">
+                <div class="col-auto">
+                  <span class="h6">Username : </span>
+                  <span><?php echo $data['username'] ?></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  <span class="h6">NIM : </span>
+                  <span><?php echo $data['NIM'] ?></span>
+                </div>
+                <!-- <div class="col-auto">
+                  <span class="h6">3.5k</span>
+                  <span>Followers</span>
+                </div>
+                <div class="col-auto">
+                  <span class="h6">260</span>
+                  <span>Following</span>
+                </div> -->
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  <span class="h6">Perguruan Tinggi : </span>
+                  <span><?php echo $data['nama_univ'] ?></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  <span class="h6">E-mail : </span>
+                  <span><?php echo $data['email'] ?></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  <span class="h6">Tanggal Lahir : </span>
+                  <span><?php echo $data['tgl_lahir'] ?></span>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-auto">
+                  <span class="h6">Instagram : </span>
+                  <span><?php echo $data['sosmed'] ?></span>
+                </div>
+              </div>
+              <p class="text-lg mb-0">
+
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-  <footer class="footer py-5">
+  </section>
+  <!-- END Testimonials w/ user image & text & info -->
+  <!-- START Blogs w/ 4 cards w/ image & text & link -->
+  <section class="py-3">
     <div class="container">
-      <!-- <div class="row">
-        <div class="col-lg-8 mb-4 mx-auto text-center">
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Company
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            About Us
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Team
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Products
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Blog
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Pricing
-          </a>
-        </div>
-        <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-dribbble"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-twitter"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-instagram"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-pinterest"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-github"></span>
-          </a>
-        </div>
-      </div> -->
       <div class="row">
-        <div class="col-8 mx-auto text-center mt-1">
-          <p class="mb-0 text-secondary">
+        <div class="col-lg-6">
+          <h3 class="">Riwayat Pembayaran</h3>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END Blogs w/ 4 cards w/ image & text & link -->
+  <section class="py-lg-7">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card overflow-hidden mb-1">
+            <div class="row">
+              <div class="col-lg-7">
+                <form class="p-3" id="contact-form" method="post">
+
+                  <table class="table">
+                    <!-- <caption>List of users</caption> -->
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tgl Pembayaran</th>
+                        <th scope="col">Jenis Pembayaran</th>
+                        <th scope="col">Nominal</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row"><a href="" class="btn bg-gradient-danger">Hapus</a></th>
+                        <td>2021-08-25</td>
+                        <td>Pembayaran Uang Pangkal</td>
+                        <td>5000000</td>
+                        <td class="bg-success text-white">Verified</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+
+                  <!-- <div class="card-header px-4 py-sm-5 py-3">
+                    <h2>Say Hi!</h2>
+                    <p class="lead"> Status dan Riwayat pembayaran</p>
+                  </div>
+                  <div class="card-body pt-1">
+                    <div class="row">
+                      <div class="col-md-12 pe-2 mb-3">
+                        <label>My name is</label>
+                        <input class="form-control" placeholder="Full Name" type="text">
+                      </div>
+                      <div class="col-md-12 pe-2 mb-3">
+                        <label>I'm looking for</label>
+                        <input class="form-control" placeholder="What you love" type="text">
+                      </div>
+                      <div class="col-md-12 pe-2 mb-3">
+                        <div class="form-group mb-0">
+                          <label>Your message</label>
+                          <textarea name="message" class="form-control" id="message" rows="6" placeholder="I want to say that..."></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 text-end ms-auto">
+                        <button type="submit" class="btn btn-round bg-gradient-info mb-0">Send Message</button>
+                      </div>
+                    </div>
+                  </div> -->
+                </form>
+              </div>
+              <div class="col-lg-5 position-relative bg-cover px-0" style="background-image: url('assets/img/curved-images/curved5.jpg')">
+                <div class="position-absolute z-index-2 w-100 h-100 top-0 start-0 d-lg-block d-none">
+                  <img src="assets/img/wave-1.svg" class="h-100 ms-n2" alt="vertical-wave">
+                </div>
+                <div class="z-index-2 text-center d-flex h-100 w-100 d-flex m-auto justify-content-center">
+                  <div class="mask bg-gradient-info opacity-9"></div>
+                  <div class="p-5 ps-sm-8 position-relative text-start my-auto z-index-2">
+                    <h3 class="text-white">Contact Information</h3>
+                    <p class="text-white opacity-8 mb-4">
+                      Lets contact us!
+                    </p>
+                    <div class="d-flex p-2 text-white">
+                      <div>
+                        <i class="fas fa-phone text-sm"></i>
+                      </div>
+                      <div class="ps-3">
+                        <span class="text-sm opacity-8">(+40) 772 100 200</span>
+                      </div>
+                    </div>
+                    <div class="d-flex p-2 text-white">
+                      <div>
+                        <i class="fas fa-envelope text-sm"></i>
+                      </div>
+                      <div class="ps-3">
+                        <span class="text-sm opacity-8">hello@creative-tim.com</span>
+                      </div>
+                    </div>
+                    <div class="d-flex p-2 text-white">
+                      <div>
+                        <i class="fas fa-map-marker-alt text-sm"></i>
+                      </div>
+                      <div class="ps-3">
+                        <span class="text-sm opacity-8">Dyonisie Wolf Bucharest, RO 010458</span>
+                      </div>
+                    </div>
+                    <div class="mt-4">
+                      <button type="button" class="btn btn-icon-only btn-link text-white btn-lg mb-0" data-toggle="tooltip" data-placement="bottom" data-original-title="Log in with Facebook">
+                        <i class="fab fa-facebook"></i>
+                      </button>
+                      <button type="button" class="btn btn-icon-only btn-link text-white btn-lg mb-0" data-toggle="tooltip" data-placement="bottom" data-original-title="Log in with Twitter">
+                        <i class="fab fa-twitter"></i>
+                      </button>
+                      <button type="button" class="btn btn-icon-only btn-link text-white btn-lg mb-0" data-toggle="tooltip" data-placement="bottom" data-original-title="Log in with Dribbble">
+                        <i class="fab fa-dribbble"></i>
+                      </button>
+                      <button type="button" class="btn btn-icon-only btn-link text-white btn-lg mb-0" data-toggle="tooltip" data-placement="bottom" data-original-title="Log in with Instagram">
+                        <i class="fab fa-instagram"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- -------- START FOOTER 5 w/ DARK BACKGROUND ------- -->
+  <!-- <footer class="footer py-5 bg-gradient-dark position-relative overflow-hidden">
+    <img src="assets/img/shapes/waves-white.svg" alt="pattern-lines" class="position-absolute start-0 top-0 w-100 opacity-6">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 me-auto mb-lg-0 mb-4 text-lg-start text-center">
+          <h6 class="text-white font-weight-bolder text-uppercase mb-lg-4 mb-3">Soft</h6>
+          <ul class="nav flex-row ms-n3 justify-content-lg-start justify-content-center mb-4 mt-sm-0">
+            <li class="nav-item">
+              <a class="nav-link text-white opacity-8" href="https://www.creative-tim.com" target="_blank">
+                Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white opacity-8" href="https://www.creative-tim.com/presentation" target="_blank">
+                About
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white opacity-8" href="https://www.creative-tim.com/blog" target="_blank">
+                Blog
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-white opacity-8" href="https://www.creative-tim.com" target="_blank">
+                Services
+              </a>
+            </li>
+          </ul>
+          <p class="text-sm text-white opacity-8 mb-0">
             Copyright © <script>
               document.write(new Date().getFullYear())
             </script> Soft by Creative Tim.
           </p>
         </div>
+        <div class="col-lg-6 ms-auto text-lg-end text-center">
+          <p class="mb-5 text-lg text-white font-weight-bold">
+            The reward for getting on the stage is fame. The price of fame is you can’t get off the stage.
+          </p>
+          <a href="javascript:;" target="_blank" class="text-white me-xl-4 me-4 opacity-5">
+            <span class="fab fa-dribbble"></span>
+          </a>
+          <a href="javascript:;" target="_blank" class="text-white me-xl-4 me-4 opacity-5">
+            <span class="fab fa-twitter"></span>
+          </a>
+          <a href="javascript:;" target="_blank" class="text-white me-xl-4 me-4 opacity-5">
+            <span class="fab fa-pinterest"></span>
+          </a>
+          <a href="javascript:;" target="_blank" class="text-white opacity-5">
+            <span class="fab fa-github"></span>
+          </a>
+        </div>
       </div>
     </div>
-  </footer>
-  <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+  </footer> -->
+  <!-- -------- END FOOTER 5 w/ DARK BACKGROUND ------- -->
   <!--   Core JS Files   -->
   <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
   <script src="assets/js/core/bootstrap.min.js" type="text/javascript"></script>
   <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="assets/js/plugins/prism.min.js"></script>
-  <script src="assets/js/plugins/highlight.min.js"></script>
   <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
   <script src="assets/js/plugins/parallax.min.js"></script>
   <!-- Control Center for Soft UI Kit: parallax effects, scripts for the example pages etc -->

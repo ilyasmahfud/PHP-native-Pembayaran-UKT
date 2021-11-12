@@ -3,17 +3,16 @@
 * Soft UI Design System - v1.0.5
 =========================================================
 
-* Product Page: https://www.creative-tim.com/product/soft-design-system
+* Product Page:  https://www.creative-tim.com/product/soft-ui-design-system 
 * Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
 
-* Coded by Creative Tim
+Coded by www.creative-tim.com
 
-=========================================================
+ =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
 
 <head>
   <meta charset="utf-8" />
@@ -21,7 +20,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <title>
-    Pembayaran
+    Login
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -34,18 +33,49 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="assets/css/soft-design-system.css?v=1.0.5" rel="stylesheet" />
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- sweet alert -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="forms-sections">
-  <!-- Navbar Light -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+<body class="sign-in-illustration">
+
+<?php
+$cek = count($_GET);
+  if ($cek > 0) {
+      $status = $_GET['status'];
+      # code...
+      if ($status == 'success') { ?>
+        <script javascript>
+              Swal.fire({
+            title: 'Mantab!',
+            text: 'Berhasil Mendaftar',
+            imageUrl: 'assets/img/success.png',
+            // imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          })
+        </script><?php
+      } elseif ($status == 'username_tidak_terdaftar') { ?>
+        <script javascript>
+              Swal.fire({
+            title: 'Ops!',
+            text: 'Sepertinya username atau pasword salah',
+            imageUrl: 'assets/img/ops.png',
+            // imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          })
+        </script><?php
+      }
+  }
+?>
+
+
+  <!-- Navbar Transparent -->
+  <nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3  navbar-transparent ">
     <div class="container">
-      <a class="navbar-brand" href="home.html" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
-        Home
+      <a class="navbar-brand  text-white " href="" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
+        Landing Page
       </a>
       <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon mt-2">
@@ -56,12 +86,13 @@
       </button>
       <div class="collapse navbar-collapse w-100 pt-3 pb-2 py-lg-0 ms-lg-12 ps-lg-5" id="navigation">
         <ul class="navbar-nav navbar-nav-hover w-100">
-          <li class="nav-item dropdown dropdown-hover mx-2 ms-lg-5">
-            <!-- <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages5" data-bs-toggle="dropdown" aria-expanded="false">
+          <li class="nav-item dropdown dropdown-hover mx-2 ms-lg-6">
+            <!-- <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages8" data-bs-toggle="dropdown" aria-expanded="false">
               Pages
-              <img src="assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
+              <img src="assets/img/down-arrow-white.svg" alt="down-arrow" class="arrow ms-1 d-lg-block d-none">
+              <img src="assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1 d-lg-none d-block">
             </a> -->
-            <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuPages5">
+            <div class="dropdown-menu dropdown-menu-animation dropdown-md p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuPages8">
               <!-- <div class="d-none d-lg-block">
                 <h6 class="dropdown-header text-dark font-weight-bolder d-flex justify-content-cente align-items-center px-0">
                   <div class="d-inline-block">
@@ -175,7 +206,8 @@
           <li class="nav-item dropdown dropdown-hover mx-2">
             <!-- <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
               Blocks
-              <img src="assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
+              <img src="assets/img/down-arrow-white.svg" alt="down-arrow" class="arrow ms-1 d-lg-block d-none">
+              <img src="assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1 d-lg-none d-block">
             </a> -->
             <ul class="dropdown-menu dropdown-menu-animation dropdown-lg dropdown-lg-responsive p-3 border-radius-lg mt-0 mt-lg-3" aria-labelledby="dropdownMenuBlocks">
               <!-- <div class="d-none d-lg-block">
@@ -323,9 +355,9 @@
                     </a>
                   </div>
                 </li>
-              </div> -->
+              </div>
               <div class="row d-lg-none">
-                <!-- <div class="col-md-12">
+                <div class="col-md-12">
                   <div class="d-flex mb-2">
                     <div class="icon h-10 me-3 d-flex mt-1">
                       <i class="ni ni-single-copy-04 text-gradient text-primary"></i>
@@ -430,14 +462,15 @@
                   <a class="dropdown-item ps-3 border-radius-md mb-1" href="sections/elements/typography.html">
                     Typography
                   </a>
-                </div> -->
-              </div>
+                </div>
+              </div> -->
             </ul>
           </li>
           <li class="nav-item dropdown dropdown-hover mx-2">
             <!-- <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
               Docs
-              <img src="assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
+              <img src="assets/img/down-arrow-white.svg" alt="down-arrow" class="arrow ms-1 d-lg-block d-none">
+              <img src="assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1 d-lg-none d-block">
             </a> -->
             <ul class="dropdown-menu dropdown-menu-animation dropdown-lg mt-0 mt-lg-3 p-3 border-radius-lg" aria-labelledby="dropdownMenuDocs">
               <!-- <div class="d-none d-lg-block">
@@ -717,150 +750,67 @@
               <p class="d-inline text-sm z-index-1 font-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Star us on Github">Github</p>
             </a> -->
           </li>
-          <li class="nav-item my-auto ms-3 ms-lg-0">
-            <a href="user-profile.html" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0"> My Profile </a>
-          </li>
+          <!-- <li class="nav-item my-auto ms-3 ms-lg-0">
+            <a href="register.html" class="btn bg-gradient-primary btn-round mb-0 me-1 mt-2 mt-md-0">Log in</a>
+          </li> -->
         </ul>
       </div>
     </div>
   </nav>
   <!-- End Navbar -->
-
-  <div class="page-header">
-    <div class="position-absolute fixed-top ms-auto w-50 h-100 rounded-3 z-index-0 d-none d-sm-none d-md-block me-n4" style="background-image: url(assets/img/ivancik.jpg); background-size: cover;">
-    </div>
-    <div class="container py-5">
-      <div class="row">
-        <div class="col-lg-7 d-flex justify-content-center flex-column">
-          <div class="card card-body d-flex justify-content-center shadow-lg p-5 blur align-items-center">
-            <h3 class="text-center">Form Pembayaran</h3>
-            <form role="form" id="contact-form" method="post" autocomplete="off">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <label>NIM</label>
-                    <div class="input-group mb-4">
-                      <input class="form-control" placeholder="" aria-label="First Name..." type="text">
-                    </div>
-                  </div>
-                  <div class="col-md-6 ps-2">
-                    <label>Nama</label>
-                    <div class="input-group">
-                      <input type="text" class="form-control" placeholder="" aria-label="Last Name...">
-                    </div>
-                  </div>
-                </div>
-                <div class="mb-4">
-                  <!-- <div class="input-group-prepend"> -->
-                    <label>Jenis Pembayaran</label>
-                  <!-- </div> -->
-                  <select class="custom-select" id="inputGroupSelect01" name="id_univ">
-                      <option selected>Pilihlah salah satu</option>
-                      <option value="UKT" name="id_univ">Uang Kuliah Tungal</option>
-                      <option value="UP" name="id_univ">Uang Pangkal</option>
-                  </select>
-                  <!-- <label>Jenis Pembayaran</label>
-                  <div class="input-group">
-                    <input type="email" class="form-control" placeholder="">
-                  </div> -->
-                </div>
-                <div class="mb-4">
-                  <label>Nominal</label>
-                  <div class="input-group">
-                    <input type="email" class="form-control" placeholder="">
-                  </div>
-                </div>
-                <div class="mb-4">
-                  <label for="Nama">Bukti Pembayaran</label>
-                    <div class="custom-file">
-                      <input name="foto" type="file"  class="custom-file-input" id="customFile">
-                      <label class="custom-file-label" for="customFile">Pilihlah Gambar</label>
-                    </div>
-                </div>
-
-                <div class="form-group mb-4">
-                  <label>Catatan</label>
-                  <textarea name="message" class="form-control" id="message" rows="4"></textarea>
-                </div>
-                <div class="row">
-                  <div class="col-md-12">
-                    <!-- <div class="form-check form-switch mb-4">
-                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" checked="">
-                      <label class="form-check-label" for="flexSwitchCheckDefault">I agree to the <a href="javascript:;" class="text-dark"><u>Terms and Conditions</u></a>.</label>
-                    </div> -->
-                  </div>
-                  <div class="col-md-12">
-                    <button type="submit" class="btn bg-gradient-dark w-100">Lakukan Pembayaran</button>
-                  </div>
-                </div>
+  <section>
+    <div class="page-header min-vh-100">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
+            <div class="card card-plain">
+              <div class="card-header pb-0 text-left">
+                <h4 class="font-weight-bolder">Masuk Sekarang</h4>
+                <p class="mb-0">Masukan username dan emailmu</p>
               </div>
-            </form>
+              <div class="card-body">
+                <form role="form" action="../process/login.php" method="post" enctype="multipart/form">
+                  <div class="mb-3">
+                    <input type="text" name="username" class="form-control form-control-lg" placeholder="Username" aria-label="Email" aria-describedby="email-addon">
+                  </div>
+                  <div class="mb-3">
+                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
+                  </div>
+                  <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Remember me</label>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
+                  </div>
+                </form>
+              </div>
+              <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                <p class="mb-4 text-sm mx-auto">
+                  Don't have an account?
+                  <a href="register.php" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
+            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center">
+              <img src="assets/img/shapes/pattern-lines.svg" alt="pattern-lines" class="position-absolute opacity-4 start-0">
+              <div class="position-relative">
+                <img class="max-width-500 w-100 position-relative z-index-2" src="assets/img/illustrations/chat.png">
+              </div>
+              <h4 class="mt-5 text-white font-weight-bolder">"Attention is the new currency"</h4>
+              <p class="text-white">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-
-  <!-- -------- START FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
-  <footer class="footer py-5">
-    <div class="container">
-      <!-- <div class="row">
-        <div class="col-lg-8 mb-4 mx-auto text-center">
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Company
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            About Us
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Team
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Products
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Blog
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-            Pricing
-          </a>
-        </div>
-        <div class="col-lg-8 mx-auto text-center mb-4 mt-2">
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-dribbble"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-twitter"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-instagram"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-pinterest"></span>
-          </a>
-          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">
-            <span class="text-lg fab fa-github"></span>
-          </a>
-        </div>
-      </div> -->
-      <div class="row">
-        <div class="col-8 mx-auto text-center mt-1">
-          <p class="mb-0 text-secondary">
-            Copyright © <script>
-              document.write(new Date().getFullYear())
-            </script> Soft by Creative Tim.
-          </p>
-        </div>
-      </div>
-    </div>
-  </footer>
-  <!-- -------- END FOOTER 3 w/ COMPANY DESCRIPTION WITH LINKS & SOCIAL ICONS & COPYRIGHT ------- -->
+  </section>
   <!--   Core JS Files   -->
   <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
   <script src="assets/js/core/bootstrap.min.js" type="text/javascript"></script>
   <script src="assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="assets/js/plugins/prism.min.js"></script>
-  <script src="assets/js/plugins/highlight.min.js"></script>
   <!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
   <script src="assets/js/plugins/parallax.min.js"></script>
   <!-- Control Center for Soft UI Kit: parallax effects, scripts for the example pages etc -->

@@ -20,7 +20,7 @@ Coded by www.creative-tim.com
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <title>
-    Soft UI Design System by Creative Tim
+    Home
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -32,17 +32,44 @@ Coded by www.creative-tim.com
   <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
   <link id="pagestyle" href="assets/css/soft-design-system.css?v=1.0.5" rel="stylesheet" />
+
+  <!-- sweet alert -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
-<body class="sign-in-illustration">
+<body class="contact-us">
+
+<?php
+$cek = count($_GET);
+$status = $_GET['username'];
+  if ($cek > 0) {
+      $status = $_GET['username'];
+      # code...
+      if (!(empty($status))) { ?>
+        <script javascript>
+              Swal.fire({
+            title: 'Anda Berhasil!',
+            text: 'Selamat Datang',
+            imageUrl: 'assets/img/success.png',
+            // imageWidth: 400,
+            imageHeight: 200,
+            imageAlt: 'Custom image',
+          })
+        </script><?php
+      } 
+  } else {
+    header('location: landing-page.php');
+  }
+?>
+
   <!-- Navbar -->
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
         <nav class="navbar navbar-expand-lg  blur blur-rounded top-0  z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
           <div class="container-fluid px-0">
-            <a class="navbar-brand font-weight-bolder ms-sm-3" href="index.html" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
-              Soft UI Design System
+            <a class="navbar-brand font-weight-bolder ms-sm-3" href="" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
+              Home
             </a>
             <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon mt-2">
@@ -53,7 +80,7 @@ Coded by www.creative-tim.com
             </button>
             <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
               <ul class="navbar-nav navbar-nav-hover ms-lg-12 ps-lg-5 w-100">
-                <li class="nav-item dropdown dropdown-hover mx-2">
+                <!-- <li class="nav-item dropdown dropdown-hover mx-2">
                   <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuPages" data-bs-toggle="dropdown" aria-expanded="false">
                     Pages
                     <img src="assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
@@ -168,8 +195,8 @@ Coded by www.creative-tim.com
                       </a>
                     </div>
                   </div>
-                </li>
-                <li class="nav-item dropdown dropdown-hover mx-2">
+                </li> -->
+                <!-- <li class="nav-item dropdown dropdown-hover mx-2">
                   <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuBlocks" data-bs-toggle="dropdown" aria-expanded="false">
                     Blocks
                     <img src="assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
@@ -430,8 +457,8 @@ Coded by www.creative-tim.com
                       </div>
                     </div>
                   </ul>
-                </li>
-                <li class="nav-item dropdown dropdown-hover mx-2">
+                </li> -->
+                <!-- <li class="nav-item dropdown dropdown-hover mx-2">
                   <a class="nav-link ps-2 d-flex justify-content-between cursor-pointer align-items-center" id="dropdownMenuDocs" data-bs-toggle="dropdown" aria-expanded="false">
                     Docs
                     <img src="assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
@@ -707,16 +734,17 @@ Coded by www.creative-tim.com
                       </div>
                     </div>
                   </ul>
-                </li>
+                </li> -->
                 <li class="nav-item ms-lg-auto">
-                  <a class="nav-link nav-link-icon me-2" href="https://github.com/creativetimofficial/soft-ui-design-system" target="_blank">
+                  <!-- <a class="nav-link nav-link-icon me-2" href="https://github.com/creativetimofficial/soft-ui-design-system" target="_blank">
                     <i class="fa fa-github me-1"></i>
                     <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Star us on Github">Github</p>
-                  </a>
+                  </a> -->
                 </li>
                 <li class="nav-item my-auto ms-3 ms-lg-0">
-                  <a href="https://www.creative-tim.com/product/soft-ui-design-system-pro" class="btn btn-sm  bg-gradient-dark  btn-round mb-0 me-1 mt-2 mt-md-0">Upgrade to Pro</a>
+                  <a href='../views/user-profile.php?username=<?php echo $_GET['username']?>' class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0">Profile</a>
                 </li>
+                
               </ul>
             </div>
           </div>
@@ -725,55 +753,265 @@ Coded by www.creative-tim.com
       </div>
     </div>
   </div>
-  <section>
-    <div class="page-header min-vh-100">
-      <div class="container">
+  <!-- -------- START HEADER 8 w/ card over right bg image ------- -->
+  <header>
+    <div class="page-header min-vh-85">
+      <div>
+        <img class="position-absolute fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0" src="assets/img/curved-images/curved8.jpg" alt="image">
+      </div>
+      <div class="container mt-5">
         <div class="row">
-          <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
-            <div class="card card-plain">
-              <div class="card-header pb-0 text-left">
-                <h4 class="font-weight-bolder">Sign In</h4>
-                <p class="mb-0">Enter your email and password to sign in</p>
-              </div>
-              <div class="card-body">
-                <form role="form">
-                  <div class="mb-3">
-                    <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" aria-describedby="email-addon">
-                  </div>
-                  <div class="mb-3">
-                    <input type="email" class="form-control form-control-lg" placeholder="Password" aria-label="Password" aria-describedby="password-addon">
-                  </div>
-                  <div class="form-check form-switch">
-                    <input class="form-check-input" type="checkbox" id="rememberMe">
-                    <label class="form-check-label" for="rememberMe">Remember me</label>
-                  </div>
-                  <div class="text-center">
-                    <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
-                  </div>
-                </form>
-              </div>
-              <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                <p class="mb-4 text-sm mx-auto">
-                  Don't have an account?
-                  <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign up</a>
+          <div class="col-lg-7 d-flex justify-content-center flex-column">
+            <div class="card d-flex blur justify-content-center p-4 shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+              <div class="text-center">
+                <h3 class="text-gradient text-primary">Tambah relasimu !</h3>
+                <p class="mb-0">
+                  Ykali kuliah cuman kuliah , kenalpun cuman kenal teman kelas, yakin kamu mahasiswa?
                 </p>
               </div>
-            </div>
-          </div>
-          <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center">
-              <img src="assets/img/shapes/pattern-lines.svg" alt="pattern-lines" class="position-absolute opacity-4 start-0">
-              <div class="position-relative">
-                <img class="max-width-500 w-100 position-relative z-index-2" src="assets/img/illustrations/chat.png">
-              </div>
-              <h4 class="mt-5 text-white font-weight-bolder">"Attention is the new currency"</h4>
-              <p class="text-white">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+              <form Class="MT-5" id="contact-form" method="post" autocomplete="off">
+                <div class="card-body pb-2">
+                    <table class="table">
+                        <!-- <caption>List of users</caption> -->
+                        <thead>
+                          <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">sosial media</th>
+                            <th scope="col">Universitas</th>
+                            <!-- <th scope="col">Handle</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">1</th>
+                            <td>Mark</td>
+                            <td>Otto</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">2</th>
+                            <td>Jacob</td>
+                            <td>Thornton</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                          <tr>
+                            <th scope="row">3</th>
+                            <td>Larry</td>
+                            <td>the Bird</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+              </form>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </header>
+  <!-- -------- END HEADER 8 w/ card over right bg image ------- -->
+  <footer class="footer pt-5 mt-5">
+    <hr class="horizontal dark mb-5">
+    <div class="container">
+      <!-- <div class=" row">
+        <div class="col-md-3 mb-4 ms-auto">
+          <div>
+            <h6 class="text-gradient text-primary font-weight-bolder">Soft UI Design System</h6>
+          </div>
+          <div>
+            <h6 class="mt-3 mb-2 opacity-8">Social</h6>
+            <ul class="d-flex flex-row ms-n3 nav">
+              <li class="nav-item">
+                <a class="nav-link pe-1" href="https://www.facebook.com/CreativeTim/" target="_blank">
+                  <i class="fab fa-facebook text-lg opacity-8"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link pe-1" href="https://twitter.com/creativetim" target="_blank">
+                  <i class="fab fa-twitter text-lg opacity-8"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link pe-1" href="https://dribbble.com/creativetim" target="_blank">
+                  <i class="fab fa-dribbble text-lg opacity-8"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link pe-1" href="https://github.com/creativetimofficial" target="_blank">
+                  <i class="fab fa-github text-lg opacity-8"></i>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link pe-1" href="https://www.youtube.com/channel/UCVyTG4sCw-rOvB9oHkzZD1w" target="_blank">
+                  <i class="fab fa-youtube text-lg opacity-8"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6 mb-4">
+          <div>
+            <h6 class="text-gradient text-primary text-sm">Company</h6>
+            <ul class="flex-column ms-n3 nav">
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/presentation" target="_blank">
+                  About Us
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/templates/free" target="_blank">
+                  Freebies
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/templates/premium" target="_blank">
+                  Premium Tools
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/blog" target="_blank">
+                  Blog
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6 mb-4">
+          <div>
+            <h6 class="text-gradient text-primary text-sm">Resources</h6>
+            <ul class="flex-column ms-n3 nav">
+              <li class="nav-item">
+                <a class="nav-link" href="https://iradesign.io/" target="_blank">
+                  Illustrations
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/bits" target="_blank">
+                  Bits & Snippets
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/affiliates/new" target="_blank">
+                  Affiliate Program
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6 mb-4">
+          <div>
+            <h6 class="text-gradient text-primary text-sm">Help & Support</h6>
+            <ul class="flex-column ms-n3 nav">
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/contact-us" target="_blank">
+                  Contact Us
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/knowledge-center" target="_blank">
+                  Knowledge Center
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://services.creative-tim.com/?ref=ct-soft-ui-footer" target="_blank">
+                  Custom Development
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/sponsorships" target="_blank">
+                  Sponsorships
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2 col-sm-6 col-6 mb-4 me-auto">
+          <div>
+            <h6 class="text-gradient text-primary text-sm">Legal</h6>
+            <ul class="flex-column ms-n3 nav">
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/terms" target="_blank">
+                  Terms & Conditions
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/privacy" target="_blank">
+                  Privacy Policy
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://www.creative-tim.com/license" target="_blank">
+                  Licenses (EULA)
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div> -->
+        <div class="col-12">
+          <div class="text-center">
+            <p class="my-4 text-sm">
+              All rights reserved. Copyright © <script>
+                document.write(new Date().getFullYear())
+              </script> Soft UI Design System by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
   <!--   Core JS Files   -->
   <script src="assets/js/core/popper.min.js" type="text/javascript"></script>
   <script src="assets/js/core/bootstrap.min.js" type="text/javascript"></script>
