@@ -40,7 +40,7 @@ Coded by www.creative-tim.com
   <!-- Navbar Light -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
     <div class="container">
-      <a class="navbar-brand" href="home.html" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
+      <a class="navbar-brand" href='home.php?username=<?php echo $_GET['username']?>' rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
         Home
       </a>
       <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
@@ -728,18 +728,26 @@ Coded by www.creative-tim.com
 
     $username = $_GET['username'];
 
-    $queryCekUsername = "SELECT `NIM`, `nama_mahasiswa`, `tgl_lahir`, `username`, `email`, `password`, `sosmed`, universitas.nama_univ AS nama_univ,`foto_profil` 
-    FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ WHERE username='$username'";
+    $queryCekUsername = "SELECT * FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ AND username = '$username'";
 
-    $cekId1 = mysqli_query($koneksi, $queryCekUsername);
-    $data = mysqli_fetch_array($cekId1);
+    $hasilQuery = mysqli_query($koneksi, $queryCekUsername);
+    $data = mysqli_fetch_array($hasilQuery);
+    // echo (mysqli_fetch_array($hasilQuery));
+
+    // print_r($queryCekUsername);
+    // echo"<br>";
+    // print_r($hasilQuery);
+    // echo"<br>";
+    // print_r($data);
+    // echo $data['NIM'];    
+    // echo $data['foto_profil'];
   ?>
     <div class="container">
       <div class="row">
         <div class="col-12 mx-auto">
           <div class="row py-lg-7 py-5">
             <div class="col-lg-3 col-md-5 position-relative my-auto">
-              <img class="img border-radius-lg max-width-200 w-100 position-relative z-index-2" src="assets/img/bruce-mars.jpg" alt="bruce">
+              <img class="img border-radius-lg max-width-200 w-100 position-relative z-index-2" src="<?php echo $data['foto_profil'] ?>" alt="bruce">
             </div>
             <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
               <div class="d-flex justify-content-between align-items-center mb-2">

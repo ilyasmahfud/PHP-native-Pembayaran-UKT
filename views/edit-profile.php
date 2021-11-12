@@ -749,7 +749,7 @@ Coded by www.creative-tim.com
                   ?>
                 </div>
                 <div class="card card-plain">
-                <form role="form" id="contact-form" method="post" action="../process/register.php" enctype="multipart/form-data" autocomplete="off">
+                <form role="form" id="contact-form" method="post" action="../process/edit-profile.php?username=<?php echo $data['username']?>" enctype="multipart/form-data" autocomplete="off">
                     <div class="card-body pb-2">
                       <div class="row">
                         <div class="form-group mb-4 mt-md-0" align="center">
