@@ -40,7 +40,18 @@ Coded by www.creative-tim.com
 </head>
 
 <body class="sign-in-illustration">
-
+<?php
+$cek = count($_GET);
+$status = $_GET['username'];
+  if ($cek > 0) {
+      $status = $_GET['username'];
+      # code...
+      if (!(empty($status))) { 
+      } 
+  } else {
+    header('location: landing-page.php');
+  }
+?>
       <!-- Navbar Light -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
     <div class="container">
@@ -753,7 +764,7 @@ Coded by www.creative-tim.com
                     <div class="card-body pb-2">
                       <div class="row">
                         <div class="form-group mb-4 mt-md-0" align="center">
-                        <label for="Nama">Foto Profil</label>
+                          <label for="Nama">Foto Profil</label>
                           <div class="custom-file">
                             <input  name="foto_profil" value="<?php echo $data['foto_profil'] ?> "type="file" class="btn btn-primary" id="customFile">
                             <!-- <label class="custom-file-label" for="customFile">Choose image</label> -->

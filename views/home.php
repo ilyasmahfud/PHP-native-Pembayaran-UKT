@@ -40,6 +40,7 @@ Coded by www.creative-tim.com
 <body class="contact-us">
 
 <?php
+require_once('../config.php');
 $cek = count($_GET);
 $status = $_GET['username'];
   if ($cek > 0) {
@@ -736,10 +737,20 @@ $status = $_GET['username'];
                   </ul>
                 </li> -->
                 <li class="nav-item ms-lg-auto">
-                  <!-- <a class="nav-link nav-link-icon me-2" href="https://github.com/creativetimofficial/soft-ui-design-system" target="_blank">
-                    <i class="fa fa-github me-1"></i>
-                    <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Star us on Github">Github</p>
-                  </a> -->
+                  <div class="nav-link nav-link-icon me-2">
+                  <?php 
+                    $username = $_GET["username"];
+                    $queryCekUsername = "SELECT mahasiswa.foto_profil FROM mahasiswa WHERE username LIKE '$username'";
+
+                    // print_r($queryCekUsername);
+                    $hasilQuery = mysqli_query($koneksi, $queryCekUsername);
+                    // print_r ($hasilQuery);
+                    $data = mysqli_fetch_array($hasilQuery);
+                  ?>
+                  <!-- <a href=""><?php echo $data['foto_profil'];?></a> -->
+                    <!-- <img src='../storage/12112021142124bg about.png' style="height: 50px" alt=""> -->
+                    <img src='<?php echo $data['foto_profil'] ?>' style="height: 30px; width: 30px; border-radius:100%;object-fit: cover" alt="">
+                  </div>
                 </li>
                 <li class="nav-item my-auto ms-3 ms-lg-0">
                   <a href='../views/user-profile.php?username=<?php echo $_GET['username']?>' class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0">Profile</a>
@@ -776,7 +787,7 @@ $status = $_GET['username'];
                 </svg>
               </div>
               <h2 class="text-white up mb-0">Yuk!<br /> Bayar Uang Kuliah</h2>
-              <a href="pembayaran.php" class="btn btn-outline-white mt-5 up btn-round">Mulai membayar</a>
+              <a href='pembayaran.php?username=<?php echo $_GET['username']?>' class="btn btn-outline-white mt-5 up btn-round">Mulai membayar</a>
             </div>
           </div>
         </div>
@@ -831,7 +842,7 @@ $status = $_GET['username'];
     </div> -->
   </section>
   <!-- -------- START HEADER 8 w/ card over right bg image ------- -->
-  <header>
+  <header id="kepala">
     <div class="page-header min-vh-85">
       <div>
         <img class="position-absolute fixed-top ms-auto w-50 h-100 z-index-0 d-none d-sm-none d-md-block border-radius-section border-top-end-radius-0 border-top-start-radius-0 border-bottom-end-radius-0" src="assets/img/curved-images/curved8.jpg" alt="image">

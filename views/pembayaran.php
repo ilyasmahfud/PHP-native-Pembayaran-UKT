@@ -41,10 +41,24 @@
 </head>
 
 <body class="forms-sections">
+
+  <?php require_once('../config.php');
+  $cek = count($_GET);
+  $status = $_GET['username'];
+    if ($cek > 0) {
+        $status = $_GET['username'];
+        # code...
+        if (!(empty($status))) { 
+        } 
+    } else {
+      header('location: landing-page.php');
+    }
+  ?>
+
   <!-- Navbar Light -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
     <div class="container">
-      <a class="navbar-brand" href="home.html" rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom" target="_blank">
+      <a class="navbar-brand" href='home.php?username=<?php echo $_GET['username']; ?>' rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
         Home
       </a>
       <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
@@ -718,7 +732,7 @@
             </a> -->
           </li>
           <li class="nav-item my-auto ms-3 ms-lg-0">
-            <a href="user-profile.html" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0"> My Profile </a>
+            <a href='user-profile.php?username=<?php echo $_GET['username'] ?>' class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0"> My Profile </a>
           </li>
         </ul>
       </div>
@@ -734,53 +748,87 @@
         <div class="col-lg-7 d-flex justify-content-center flex-column">
           <div class="card card-body d-flex justify-content-center shadow-lg p-5 blur align-items-center">
             <h3 class="text-center">Form Pembayaran</h3>
-            <form role="form" id="contact-form" method="post" autocomplete="off">
+            <form enctype="multipart/form-data" role="form" id="contact-form" method="post" action='../process/pembayaran.php?username=<?php echo $_GET["username"]; ?>' autocomplete="off">
+              <?php 
+                $username = $_GET["username"];
+                $queryCekUsername = "SELECT mahasiswa.NIM AS NIM, mahasiswa.nama_mahasiswa AS nama, pembayaran.nominal AS nominal, pembayaran.status AS status_pembayaran FROM mahasiswa JOIN pembayaran 
+                ON pembayaran.NIM = mahasiswa.NIM AND username = '$username'";
+
+                $hasilQuery = mysqli_query($koneksi, $queryCekUsername);
+                $data = mysqli_fetch_array($hasilQuery);
+              ?>
+
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-6">
                     <label>NIM</label>
                     <div class="input-group mb-4">
-                      <input class="form-control" placeholder="" aria-label="First Name..." type="text">
+                      <input value='<?php echo $data['NIM'] ?>' disabled class="form-control" placeholder="" aria-label="First Name..." type="text">
                     </div>
                   </div>
                   <div class="col-md-6 ps-2">
-                    <label>Nama</label>
+                    <label>Nama Mahasiswa</label>
                     <div class="input-group">
-                      <input type="text" class="form-control" placeholder="" aria-label="Last Name...">
+                      <input value='<?php echo $data['nama'] ?>' disabled type="text" class="form-control" placeholder="" aria-label="Last Name...">
                     </div>
                   </div>
                 </div>
-                <div class="mb-4">
-                  <!-- <div class="input-group-prepend"> -->
+                <!-- <div class="mb-4">
+                  <div class="input-group-prepend">
                     <label>Jenis Pembayaran</label>
-                  <!-- </div> -->
+                  </div>
                   <select class="custom-select" id="inputGroupSelect01" name="id_univ">
                       <option selected>Pilihlah salah satu</option>
                       <option value="UKT" name="id_univ">Uang Kuliah Tungal</option>
                       <option value="UP" name="id_univ">Uang Pangkal</option>
                   </select>
-                  <!-- <label>Jenis Pembayaran</label>
-                  <div class="input-group">
-                    <input type="email" class="form-control" placeholder="">
-                  </div> -->
-                </div>
-                <div class="mb-4">
-                  <label>Nominal</label>
+                  <label>Jenis Pembayaran</label>
                   <div class="input-group">
                     <input type="email" class="form-control" placeholder="">
                   </div>
-                </div>
+                </div> -->
                 <div class="mb-4">
-                  <label for="Nama">Bukti Pembayaran</label>
-                    <div class="custom-file">
-                      <input name="foto" type="file"  class="custom-file-input" id="customFile">
-                      <label class="custom-file-label" for="customFile">Pilihlah Gambar</label>
+                  <label>Nominal</label>
+                  <div class="input-group">
+                    <input disabled value='<?php echo $data['nominal'] ?>' type="number" class="form-control" placeholder="">
+                  </div>
+                </div>
+
+                <!-- <div class="card-body"> -->
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>Status</label>
+                    <div class="input-group mb-4">
+                      <!-- echo "<input value='". $status."' disabled class='form-control bg-gradient-danger' aria-label='First Name...' type='text'>"; -->
+                      <?php
+                      
+                      if ($data['status_pembayaran']==="belum dibayar") {
+                        $status = "Belum dibayar";
+                        echo "<span class='badge bg-gradient-danger p-2'>".$status."</span>";
+                      } elseif ($data['status_pembayaran']==="sudah membayar") {
+                        $status = "sudah dibayar";
+                        echo "<span class='badge bg-gradient-warning p-2'>".$status."</span>"."<hr>"; 
+                        echo "<span class='badge bg-gradient-info p-2'>Belum dikonfirmasi</span>";
+                      } elseif ($data['status_pembayaran']==="sudah terkonfirmasi") {
+                        $status = "sudah terkonfirmasi";
+                        echo "<span class='badge bg-gradient-success p-2'>".$status."</span>";
+                      }
+                      ?>
                     </div>
+                    
+                  </div>
+                  <div class="col-md-6 ps-2">
+                  <label for="Nama">Bukti Pembayaran</label>
+                  <div class="custom-file">
+                    <input style="font-size:12px" name="bukti_pembayaran" type="file" class="btn btn-light" id="customFile">
+                    <!-- <label class="custom-file-label" for="customFile">Choose image</label> -->
+                    </div>
+                  </div>
                 </div>
 
                 <div class="form-group mb-4">
                   <label>Catatan</label>
-                  <textarea name="message" class="form-control" id="message" rows="4"></textarea>
+                  <textarea name="catatan" class="form-control" id="message" rows="4"></textarea>
                 </div>
                 <div class="row">
                   <div class="col-md-12">

@@ -36,6 +36,18 @@ Coded by www.creative-tim.com
 
 <body class="blog-author bg-gray-100">
   
+<?php
+$cek = count($_GET);
+$status = $_GET['username'];
+  if ($cek > 0) {
+      $status = $_GET['username'];
+      # code...
+      if (!(empty($status))) { 
+      } 
+  } else {
+    header('location: landing-page.php');
+  }
+?>
 
   <!-- Navbar Light -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
@@ -714,7 +726,7 @@ Coded by www.creative-tim.com
             </a> -->
           </li>
           <li class="nav-item my-auto ms-3 ms-lg-0">
-            <a href="pembayaran.html" class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0"> Bayar </a>
+            <a href='pembayaran.php?username=<?php echo $_GET["username"]?>' class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0"> Bayar </a>
           </li>
         </ul>
       </div>
@@ -835,25 +847,60 @@ Coded by www.creative-tim.com
 
                   <table class="table">
                     <!-- <caption>List of users</caption> -->
-                    <thead>
                       <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Tgl Pembayaran</th>
-                        <th scope="col">Jenis Pembayaran</th>
-                        <th scope="col">Nominal</th>
-                        <th scope="col">Status</th>
+                        <th >Perubahan Terakhir</th>
+                        <th >Nominal</th>
+                        <th >Status</th>
                       </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row"><a href="" class="btn bg-gradient-danger">Hapus</a></th>
-                        <td>2021-08-25</td>
-                        <td>Pembayaran Uang Pangkal</td>
-                        <td>5000000</td>
-                        <td class="bg-success text-white">Verified</td>
-                      </tr>
-                      
-                    </tbody>
+                      <?php
+                        $NIM = $data['NIM'];
+                        $queryGetHistory = "SELECT * FROM pembayaran WHERE NIM LIKE '$NIM'";
+                        $cek = mysqli_query($koneksi, $queryGetHistory);
+
+                        if ($query = mysqli_query($koneksi, $queryGetHistory)) {
+                          while ($data = mysqli_fetch_array($query)) {
+                            if ($data['status']==="belum dibayar") {
+                              # code...
+                              echo "
+                                  <tr>
+                                      <td>" . $data['updated_at'] . "</td>
+                                      <td>" . $data['nominal'] . "</td>
+                                      <td><span class='badge bg-gradient-danger p-2'>".$data['status']."</span></td>
+                                  </tr>
+                                  ";
+                            } elseif ($data['status']==="sudah membayar") {
+                              # code...
+                              echo "
+                                  <tr>
+                                      <td>" . $data['updated_at'] . "</td>
+                                      <td>" . $data['nominal'] . "</td>
+                                      <td><span class='badge bg-gradient-warning p-2'>".$data['status']."</span></td>
+                                  </tr>";
+                              echo "
+                                  <tr>
+                                      <td></td>
+                                      <td></td>
+                                      <td><span class='badge bg-gradient-info p-2'>belum dikonfirmasi</span></td>
+                                  </tr>
+                                  ";
+                            } elseif ($data['status']==="sudah membayar") {
+                              # code...
+                              echo "
+                                  <tr>
+                                      <td>" . $data['updated_at'] . "</td>
+                                      <td>" . $data['nominal'] . "</td>
+                                      <td><span class='badge bg-gradient-succes p-2'>sudah dikonfirmasi</span></td>
+                                  </tr>";
+                            }
+                          }
+                      } else {
+                          echo "
+                              <tr>
+                                  <td colspan=8>Data tidak ditemukan</td>
+                              </tr>
+                              ";
+                      }
+                      ?>
                   </table>
 
                   <!-- <div class="card-header px-4 py-sm-5 py-3">
