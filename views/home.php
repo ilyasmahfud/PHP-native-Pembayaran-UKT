@@ -175,7 +175,7 @@
                     <tbody>
                       <?php
                       require_once('../config.php');
-                      $queryCekUsername = "SELECT * FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ ";
+                      $queryCekUsername = "SELECT * FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ LIMIT 10 ";
 
                       if ($hasilQuery = mysqli_query($koneksi, $queryCekUsername)) {
                         while ($data = mysqli_fetch_array($hasilQuery)) {
