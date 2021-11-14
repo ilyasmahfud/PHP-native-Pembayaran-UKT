@@ -69,6 +69,7 @@ SELECT * FROM mahasiswa WHERE id_univ IN ('001027');
 SELECT * FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ JOIN pembayaran ON pembayaran.NIM = mahasiswa.NIM WHERE pembayaran.status = 'sudah membayar';
 
 UPDATE pembayaran SET STATUS='belum dibayar', confirmed_by=NULL WHERE id='1';
+UPDATE pembayaran SET STATUS='belum dibayar', confirmed_by='admin ' ,bukti_pembayaran='', catatan='bukti pembayaran tidak valid' WHERE id='2';
 
 SELECT * FROM ADMIN;
 SELECT * FROM pembayaran;
@@ -77,3 +78,4 @@ SELECT * FROM universitas;
 SELECT * FROM mahasiswa;
 SELECT username FROM mahasiswa WHERE username LIKE 'ilyasmahfud' AND `password` = '2';
 
+UPDATE mahasiswa SET `foto_profil` = '../storage/13112021044319foto-about.jpeg' WHERE id_univ = '001003';

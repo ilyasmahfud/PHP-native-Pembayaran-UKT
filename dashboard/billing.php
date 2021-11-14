@@ -286,7 +286,7 @@
               </tbody>
               <ul class="list-group">
                 <?php
-                $queryAllMahaasiswa = "SELECT * FROM mahasiswa LIMIT 5";
+                $queryAllMahaasiswa = "SELECT * FROM mahasiswa ORDER BY id_univ LIMIT 8";
 
                 if ($hasilQueryAll = mysqli_query($koneksi, $queryAllMahaasiswa)) {
                   while ($dataAll = mysqli_fetch_array($hasilQueryAll)) {
@@ -294,17 +294,58 @@
                     if ($hasilQueryNIM = mysqli_query($koneksi, $queryCekNIM)) {
                       while ($dataNIM = mysqli_fetch_array($hasilQueryNIM)) {
                         if ($dataAll['NIM'] !== $dataNIM['NIM']) {
+                          $id_univ = $dataAll['id_univ'];
+                          $queryUniv = "SELECT * FROM universitas WHERE NIU LIKE '$id_univ' ";
+                          $queryUniv = mysqli_query($koneksi, $queryUniv);
+                          $dataUniv = mysqli_fetch_array($queryUniv);
+
+                          $user = $dataAll['username'];
+                          $id_univ = $dataAll['id_univ'];
+                          $nama_univ = $dataUniv['nama_univ'];
+                          $NIM_user = $dataAll['NIM'];
+
                           echo "
                             <li class='list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg'>
                             <div class='d-flex flex-column'>
                               <h6 class='mb-1 text-dark font-weight-bold text-sm'>" . $dataAll['nama_mahasiswa'] . "</h6>
-                              <span class='text-xs'>" . $dataAll['email'] . "</span>
+                              <span class='text-xs'>" . $user . "</span>
                             </div>
                             <div class='d-flex align-items-center text-sm'>
                               " . $dataAll['id_univ'] . "
-                              <button class='btn btn-link text-dark text-sm mb-0 px-0 ms-4'></i> SET NOW </button>
+                              <button class='btn btn-link text-dark text-sm mb-0 px-0 ms-4' data-bs-toggle='modal' data-bs-target='#exampleModalMessage'></i> SET NOW </button>
                             </div>
                           </li>
+
+                          <!-- Modal -->
+                          <div class='modal fade' id='exampleModalMessage' tabindex='-1' role='dialog' aria-labelledby='exampleModalMessageTitle' aria-hidden='true'>
+                            <div class='modal-dialog modal-dialog-centered' role='document'>
+                              <div class='modal-content'>
+                                <div class='modal-header'>
+                                  <h5 class='modal-title' id='exampleModalLabel'>Sudah saatnya pembayaran UKT di " . $dataUniv['nama_univ'] . " Yaa?</h5>
+                                  <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'>
+                                    <span aria-hidden='true'>×</span>
+                                  </button>
+                                </div>
+                                <div class='modal-body'>
+                                  <form action='process/set_pembayaran.php?username=" . $username . "' method='post'>
+                                    <div class='form-group'>
+                                      <label for='recipient-name' class='col-form-label'>Nominal " . $user . "</label>
+                                      <input name='nominal' type='number' min=1 class='form-control' placeholder='Masukkan Nominal' id='recipient-name'>
+                                    </div>
+                                    <div class='form-group'>
+                                      <label for='message-text' class='col-form-label'>Universitas</label>
+                                      <input name='nama_univ' disabled class='form-control' id='message-text' value='" . $nama_univ . "' placeholder='" . $id_univ . " - " . $nama_univ . "'</input>
+                                      <input name='NIM' type='text' value='" . $NIM_user . "' style='display: none'>
+                                    </div>
+                                    <div class='modal-footer'>
+                                      <button type='button' class='btn bg-gradient-secondary' data-bs-dismiss='modal'>Belum</button>
+                                      <button type='submit' class='btn bg-gradient-primary'>Ya, Sudah</button>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                           ";
                           break;
                         }
@@ -320,59 +361,6 @@
                 }
 
                 ?>
-
-
-
-                <!-- <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="mb-1 text-dark font-weight-bold text-sm">March, 01, 2020</h6>
-                    <span class="text-xs">#MS-415646</span>
-                  </div>
-                  <div class="d-flex align-items-center text-sm">
-                    $180
-                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
-                  </div>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="text-dark mb-1 font-weight-bold text-sm">February, 10, 2021</h6>
-                    <span class="text-xs">#RV-126749</span>
-                  </div>
-                  <div class="d-flex align-items-center text-sm">
-                    $250
-                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
-                  </div>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="text-dark mb-1 font-weight-bold text-sm">April, 05, 2020</h6>
-                    <span class="text-xs">#FB-212562</span>
-                  </div>
-                  <div class="d-flex align-items-center text-sm">
-                    $560
-                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
-                  </div>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="text-dark mb-1 font-weight-bold text-sm">June, 25, 2019</h6>
-                    <span class="text-xs">#QW-103578</span>
-                  </div>
-                  <div class="d-flex align-items-center text-sm">
-                    $120
-                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
-                  </div>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 border-radius-lg">
-                  <div class="d-flex flex-column">
-                    <h6 class="text-dark mb-1 font-weight-bold text-sm">March, 01, 2019</h6>
-                    <span class="text-xs">#AR-803481</span>
-                  </div>
-                  <div class="d-flex align-items-center text-sm">
-                    $300
-                    <button class="btn btn-link text-dark text-sm mb-0 px-0 ms-4"><i class="fas fa-file-pdf text-lg me-1"></i> PDF</button>
-                  </div>
-                </li> -->
               </ul>
             </div>
           </div>
@@ -387,7 +375,7 @@
             <div class="card-body pt-4 p-3">
               <ul class="list-group">
                 <?php
-                $queryCekUsername = "SELECT mahasiswa.nama_mahasiswa, mahasiswa.email, mahasiswa.username, universitas.nama_univ, pembayaran.bukti_pembayaran, pembayaran.id AS id_pembayaran FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ JOIN pembayaran ON pembayaran.NIM = mahasiswa.NIM WHERE pembayaran.status = 'sudah membayar' ";
+                $queryCekUsername = "SELECT mahasiswa.nama_mahasiswa, mahasiswa.email, mahasiswa.username, universitas.nama_univ, pembayaran.bukti_pembayaran, pembayaran.id AS id_pembayaran, pembayaran.nominal AS nominal FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ JOIN pembayaran ON pembayaran.NIM = mahasiswa.NIM WHERE pembayaran.status = 'sudah membayar' ";
 
                 if ($hasilQuery = mysqli_query($koneksi, $queryCekUsername)) {
                   while ($data = mysqli_fetch_array($hasilQuery)) {
@@ -400,7 +388,7 @@
                             <span class='text-xs'>Username: <span class='text-dark ms-sm-2 font-weight-bold'>" . $data['username'] . "</span></span>
                           </div>
                           <div class='ms-auto text-end'>
-                            <a class='btn btn-link text-danger text-gradient px-3 mb-0' href='javascript:;'><i class='far fa-trash-alt me-2'></i>Delete</a>
+                            <a class='btn btn-link text-danger text-gradient px-3 mb-0' href='process/delete_konfirmasi.php?username=" . $username . " &id_pembayaran=" . $data['id_pembayaran'] . "'><i class='far fa-trash-alt me-2'></i>Delete</a>
                             <a type'button' class='btn btn-link text-dark px-3 mb-0' data-bs-toggle='modal' data-bs-target='#exampleModalLong'><i class='fas fa-pencil-alt text-dark me-2' aria-hidden='true'></i>Edit</a>
                           </div>
                         </li>
@@ -410,7 +398,7 @@
                           <div class='modal-dialog' role='document'>
                             <div class='modal-content' style='width:700px'>
                               <div class='modal-header'>
-                                <h5 class='modal-title' id='exampleModalLongTitle'>Bukti Pembayaran " . $data['nama_mahasiswa'] . "</h5>
+                                <h5 class='modal-title' id='exampleModalLongTitle'>Bukti Pembayaran " . $data['nama_mahasiswa'] . " - RP " . $data['nominal'] . "</h5>
                                 <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'>
                                   <span aria-hidden='true'>&times;</span>
                                 </button>
@@ -437,10 +425,6 @@
                       ";
                 }
                 ?>
-                <!-- Button trigger modal -->
-                <!-- <button type="button" class="btn bg-gradient-danger btn-block mb-3" data-bs-toggle="modal" data-bs-target="#exampleModalLong">
-                  Long Modal
-                </button> -->
               </ul>
             </div>
           </div>
@@ -450,17 +434,45 @@
             <div class="card-header pb-0 px-3">
               <div class="row">
                 <div class="col-md-6">
-                  <h6 class="mb-0">Your Transaction's</h6>
+                  <h6 class="mb-0">Belum membayar</h6>
                 </div>
                 <div class="col-md-6 d-flex justify-content-end align-items-center">
                   <i class="far fa-calendar-alt me-2"></i>
-                  <small>23 - 30 March 2020</small>
+                  <small> November 2021</small>
                 </div>
               </div>
             </div>
             <div class="card-body pt-4 p-3">
-              <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Newest</h6>
+              <h6 class="text-uppercase text-body text-xs font-weight-bolder mb-3">Mahasiswa</h6>
               <ul class="list-group">
+                <?php
+                $queryCekUsername = "SELECT mahasiswa.username,mahasiswa.nama_mahasiswa, mahasiswa.foto_profil, universitas.nama_univ, pembayaran.nominal FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ JOIN pembayaran ON pembayaran.NIM = mahasiswa.NIM WHERE pembayaran.status = 'belum dibayar' ";
+
+                if ($hasilQuery = mysqli_query($koneksi, $queryCekUsername)) {
+                  while ($data = mysqli_fetch_array($hasilQuery)) {
+                    echo "
+                        <li class='list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg'>
+                          <div class='d-flex align-items-center'>
+                            <img src='" . $data['foto_profil'] . "' class='avatar avatar-sm me-3'></img>
+                            <div class='d-flex flex-column'>
+                              <h6 class='mb-1 text-dark text-sm'>" . $data['nama_mahasiswa'] . "</h6>
+                              <span class='text-xs'>" . $data['username'] . "</span>
+                            </div>
+                          </div>
+                          <div class='d-flex align-items-center text-danger text-gradient text-sm font-weight-bold'>
+                            " . $data['nominal'] . "
+                          </div>
+                        </li>
+                        ";
+                  }
+                } else {
+                  echo "
+                      <tr>
+                          <td colspan=8>Data tidak ditemukan</td>
+                      </tr>
+                      ";
+                }
+                ?>
                 <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                   <div class="d-flex align-items-center">
                     <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-down"></i></button>
