@@ -173,7 +173,7 @@
                           </td>
                           <td>
                             <p class='text-xs font-weight-bold mb-0'>" . $data['nama_univ'] . "</p>
-                            <p class='text-xs text-secondary mb-0'>" . $data['NIU'] . "</p>
+                            <p class='text-xs text-secondary mb-0'>" . $data['NIM'] . "</p>
                           </td>
                           <td class='align-middle text-center text-sm'>
                             <a href='https://www.instagram.com/" . $data['sosmed'] . "'><span class='badge bg-gradient-primary'>stalk now</span><a/>
@@ -182,7 +182,7 @@
                             <span class='text-secondary text-xs font-weight-bold'>" . $data['tgl_lahir'] . "</span>
                           </td>
                           <td class='align-middle'>
-                            <a href='javascript:;' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user'>
+                            <a href='#' onclick='validation(" . $data['NIM'] . ")' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user'>
                               Delete
                             </a>
                           </td>
@@ -228,6 +228,51 @@
     $(document).ready(function() {
       $('#table').DataTable();
     });
+  </script>
+  <!-- sweetalert -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    function validation(params) {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: 'btn btn-success',
+          cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+      })
+
+      swalWithBootstrapButtons.fire({
+        title: 'Apakah anda yakin?',
+        text: "Data tidak bisa dikembalikan!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Ya, hapus ini!',
+        cancelButtonText: 'Tidak!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          swalWithBootstrapButtons.fire(
+            'Terhapus!',
+            'Data telah dihapus.',
+            'mantebb'
+          )
+          // var delayInMilliseconds = 3000;
+          // setTimeout(function() {
+          //   window.location.href = 'process/delete_user.php?username=" <?php echo $username ?> " &NIM=" <? echo $data['NIM '] ?>' + param;
+          // }, delayInMilliseconds);
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Batal',
+            'Data masih aman',
+            'gagal dihapus'
+          )
+        }
+      })
+    }
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

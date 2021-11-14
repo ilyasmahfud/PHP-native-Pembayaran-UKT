@@ -1,18 +1,3 @@
-<!--
-=========================================================
-* Soft UI Dashboard - v1.0.3
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/soft-ui-dashboard
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -286,7 +271,7 @@
               </tbody>
               <ul class="list-group">
                 <?php
-                $queryAllMahaasiswa = "SELECT * FROM mahasiswa ORDER BY id_univ LIMIT 8";
+                $queryAllMahaasiswa = "SELECT * FROM mahasiswa ORDER BY id_univ LIMIT 5";
 
                 if ($hasilQueryAll = mysqli_query($koneksi, $queryAllMahaasiswa)) {
                   while ($dataAll = mysqli_fetch_array($hasilQueryAll)) {
@@ -375,7 +360,7 @@
             <div class="card-body pt-4 p-3">
               <ul class="list-group">
                 <?php
-                $queryCekUsername = "SELECT mahasiswa.nama_mahasiswa, mahasiswa.email, mahasiswa.username, universitas.nama_univ, pembayaran.bukti_pembayaran, pembayaran.id AS id_pembayaran, pembayaran.nominal AS nominal FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ JOIN pembayaran ON pembayaran.NIM = mahasiswa.NIM WHERE pembayaran.status = 'sudah membayar' ";
+                $queryCekUsername = "SELECT mahasiswa.nama_mahasiswa, mahasiswa.email, mahasiswa.username, universitas.nama_univ, pembayaran.catatan, pembayaran.bukti_pembayaran, pembayaran.id AS id_pembayaran, pembayaran.nominal AS nominal FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ JOIN pembayaran ON pembayaran.NIM = mahasiswa.NIM WHERE pembayaran.status = 'sudah membayar' ";
 
                 if ($hasilQuery = mysqli_query($koneksi, $queryCekUsername)) {
                   while ($data = mysqli_fetch_array($hasilQuery)) {
@@ -405,6 +390,8 @@
                               </div>
                               <div align='center' class='modal-body'>
                                 <img src='" . $data['bukti_pembayaran'] . "' alt='bukti pembayaran " . $data['nama_mahasiswa'] . "' style='width:600px'>
+                                <label for='recipient-name' class='col-form-label'>Catatan</label>
+                                <input value='" . $data['catatan'] . "' type='text' disabled class='form-control' placeholder='' id='recipient-name'>
                               </div>
                               <div class='modal-footer'>
                                   <button type='button' class='btn bg-gradient-danger' data-bs-dismiss='modal'>Tutup</button>
@@ -473,32 +460,7 @@
                       ";
                 }
                 ?>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex align-items-center">
-                    <button class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-down"></i></button>
-                    <div class="d-flex flex-column">
-                      <h6 class="mb-1 text-dark text-sm">Netflix</h6>
-                      <span class="text-xs">27 March 2020, at 12:30 PM</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
-                    - $ 2,500
-                  </div>
-                </li>
-                <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                  <div class="d-flex align-items-center">
-                    <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-up"></i></button>
-                    <div class="d-flex flex-column">
-                      <h6 class="mb-1 text-dark text-sm">Apple</h6>
-                      <span class="text-xs">27 March 2020, at 04:30 AM</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
-                    + $ 2,000
-                  </div>
-                </li>
               </ul>
-
             </div>
           </div>
         </div>
