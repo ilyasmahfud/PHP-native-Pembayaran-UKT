@@ -44,36 +44,36 @@ Coded by www.creative-tim.com
 
 <body class="sign-in-illustration">
 
-<?php
-$cek = count($_GET);
+  <?php
+  $cek = count($_GET);
   if ($cek > 0) {
-      $status = $_GET['status'];
-      # code...
-      if ($status == 'NIM_sudah_ada') { ?>
-        <script javascript>
-            Swal.fire({
-            title: 'Lohh!',
-            text: 'Kok NIM kamu sudah dimiliki orang lain?',
-            imageUrl: 'assets/img/loh.png',
-            // imageWidth: 400,
-            imageHeight: 200,
-            imageAlt: 'Custom image',
-          })
-        </script><?php
-      } elseif ($status == 'error') { ?>
-        <script javascript>
-            Swal.fire({
-            title: 'Ops!',
-            text: 'Sistem error',
-            imageUrl: 'assets/img/ops.png',
-            // imageWidth: 400,
-            imageHeight: 200,
-            imageAlt: 'Custom image',
-          })
-        </script><?php
-      }
-  }
-?>
+    $status = $_GET['status'];
+    # code...
+    if ($status == 'NIM_sudah_ada') { ?>
+      <script javascript>
+        Swal.fire({
+          title: 'Lohh!',
+          text: 'Kok NIM kamu sudah dimiliki orang lain?',
+          imageUrl: 'assets/img/loh.png',
+          // imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'Custom image',
+        })
+      </script><?php
+              } elseif ($status == 'error') { ?>
+      <script javascript>
+        Swal.fire({
+          title: 'Ops!',
+          text: 'Sistem error',
+          imageUrl: 'assets/img/ops.png',
+          // imageWidth: 400,
+          imageHeight: 200,
+          imageAlt: 'Custom image',
+        })
+      </script><?php
+              }
+            }
+                ?>
 
   <!-- Navbar Light -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
@@ -761,89 +761,98 @@ $cek = count($_GET);
 
   <section>
     <section>
-        <div class="container py-4">
-          <div class="row">
-            <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
-              <div class="card d-flex justify-content-center p-4 shadow-lg">
-                <div class="text-center">
-                  <h3 class="text-gradient text-primary">Daftar Sekarang Juga !</h3>
-                  <p class="mb-0">
-                    Dapatkan kemudahan dalam melakukan pembayaran ke kampus anda
-                  </p>
-                </div>
-                <div class="card card-plain">
-                  <form role="form" id="contact-form" method="post" action="../process/register.php" enctype="multipart/form-data" autocomplete="off">
-                    <div class="card-body pb-2">
-                      <div class="row">
-                        <div class="form-group mb-4 mt-md-0" align="center">
+      <div class="container py-4">
+        <div class="row">
+          <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+            <div class="card d-flex justify-content-center p-4 shadow-lg">
+              <div class="text-center">
+                <h3 class="text-gradient text-primary">Daftar Sekarang Juga !</h3>
+                <p class="mb-0">
+                  Dapatkan kemudahan dalam melakukan pembayaran ke kampus anda
+                </p>
+              </div>
+              <div class="card card-plain">
+                <form role="form" id="contact-form" method="post" action="../process/register.php" enctype="multipart/form-data" autocomplete="off">
+                  <div class="card-body pb-2">
+                    <div class="row">
+                      <div class="form-group mb-4 mt-md-0" align="center">
                         <label for="Nama">Foto Profil</label>
-                          <div class="custom-file">
-                            <input  name="foto_profil" type="file" class="btn btn-primary" id="customFile">
-                            <!-- <label class="custom-file-label" for="customFile">Choose image</label> -->
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label>Nama Lengkap</label>
-                          <div class="input-group mb-4">
-                            <input name="nama_mahasiswa" class="form-control" placeholder="Full Name" aria-label="Full Name" type="text" >
-                          </div>
-                        </div>
-                        <div class="col-md-6 ps-md-2">
-                          <label>NIM</label>
-                          <input name="NIM" type="text" class="form-control" placeholder="Nomor Induk Mahasiswa" >
+                        <div class="custom-file">
+                          <input name="foto_profil" type="file" class="btn btn-primary" id="customFile">
+                          <!-- <label class="custom-file-label" for="customFile">Choose image</label> -->
                         </div>
                       </div>
-                      <div class="form-group mb-4 mt-md-0">
-                        <label>Email</label>
-                          <div class="input-group">
-                            <input name="email" type="email" class="form-control" placeholder="hello@creative-tim.com" >
-                          </div>
-                      </div>
-                      <div class="form-group mb-4 mt-md-0">
-                        <label>Tanggal Lahir</label>
-                        <input name="tgl_lahir" class="form-control" type="date" id="datePicker" name="tgl_lahir" placeholder="">
-                      </div>
-                      <div class="form-group mb-4 mt-md-0">
-                        <label>Nama Pengguna</label>
-                        <input name="username" type="text" class="form-control" placeholder="Username" aria-label="Last Name...">
-                      </div>
-                      <div class="form-group mb-4 mt-md-0">
-                        <label>Kata Sandi</label>
-                        <input name="password" type="password" class="form-control" placeholder="Password" aria-label="Last Name...">
-                      </div>
-                      <div class="form-group mb-4 mt-md-0">
-                        <label>Instagram</label><br>
-                        <small>Dengan mengisi sosial media,berarti anda siap untuk memberitahu dunia sosial media anda. cie terkenal!</small>
-                        <input name="sosmed" type="text" class="form-control" placeholder="Sosial Media" aria-label="Last Name...">
-                      </div>
-                      <div class="form-group mb-4 mt-md-0">
-                        <label for="exampleFormControlSelect1">Universitas</label>
-                        <select class="form-control" id="exampleFormControlSelect1" name="id_univ">
-                            <option selected>Pilihlah salah satu</option>
-                            <option value="11M" name="id_univ">Universitas Sebelas Maret</option>
-                            <option value="UMS" name="id_univ">Universitas Muhammadiyah Surakarta</option>
-                        </select>
-                      </div>
-
-                      <div class="row">
-                        <div class="col-md-12 text-center">
-                          <button type="submit" class="btn bg-gradient-primary mt-3 mb-0">Daftar</button>
+                      <div class="col-md-6">
+                        <label>Nama Lengkap</label>
+                        <div class="input-group mb-4">
+                          <input name="nama_mahasiswa" class="form-control" placeholder="Full Name" aria-label="Full Name" type="text">
                         </div>
-                        <div class="card-footer text-center pt-0 px-lg-2 px-1 mt-2">
-                            <p class="mb-4 text-sm mx-auto">
-                              Sudah Punya akun?
-                              <a href="login.php" class="text-primary text-gradient font-weight-bold">Masuk</a>
-                            </p>
-                          </div>
+                      </div>
+                      <div class="col-md-6 ps-md-2">
+                        <label>NIM</label>
+                        <input name="NIM" type="text" class="form-control" placeholder="Nomor Induk Mahasiswa">
                       </div>
                     </div>
-                  </form>
-                </div>
+                    <div class="form-group mb-4 mt-md-0">
+                      <label>Email</label>
+                      <div class="input-group">
+                        <input name="email" type="email" class="form-control" placeholder="hello@creative-tim.com">
+                      </div>
+                    </div>
+                    <div class="form-group mb-4 mt-md-0">
+                      <label>Tanggal Lahir</label>
+                      <input name="tgl_lahir" class="form-control" type="date" id="datePicker" name="tgl_lahir" placeholder="">
+                    </div>
+                    <div class="form-group mb-4 mt-md-0">
+                      <label>Nama Pengguna</label>
+                      <input name="username" type="text" class="form-control" placeholder="Username" aria-label="Last Name...">
+                    </div>
+                    <div class="form-group mb-4 mt-md-0">
+                      <label>Kata Sandi</label>
+                      <input name="password" type="password" class="form-control" placeholder="Password" aria-label="Last Name...">
+                    </div>
+                    <div class="form-group mb-4 mt-md-0">
+                      <label>Instagram</label><br>
+                      <small>Dengan mengisi sosial media,berarti anda siap untuk memberitahu dunia sosial media anda. cie terkenal!</small>
+                      <input name="sosmed" type="text" class="form-control" placeholder="Sosial Media" aria-label="Last Name...">
+                    </div>
+                    <div class="form-group mb-4 mt-md-0">
+                      <label for="exampleFormControlSelect1">Universitas</label>
+                      <select class="form-control" id="exampleFormControlSelect1" name="id_univ">
+                        <?php
+                        require_once('../config.php');
+                        $query = "SELECT * FROM universitas ORDER BY `NIU`;";
+
+                        if ($query = mysqli_query($koneksi, $query)) {
+                          while ($data = mysqli_fetch_array($query)) {
+                            echo "<option value='" . $data['NIU'] . "' name='id_univ'>" . $data['nama_univ'] . "</option>";
+                          }
+                        } else {
+                          echo "<option value='' name='id_univ'>Error</option>";
+                        }
+                        ?>
+                      </select>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <button type="submit" class="btn bg-gradient-primary mt-3 mb-0">Daftar</button>
+                      </div>
+                      <div class="card-footer text-center pt-0 px-lg-2 px-1 mt-2">
+                        <p class="mb-4 text-sm mx-auto">
+                          Sudah Punya akun?
+                          <a href="login.php" class="text-primary text-gradient font-weight-bold">Masuk</a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
   </section>
   <!--   Core JS Files   -->
   <script src="assets/js/core/popper.min.js" type="text/javascript"></script>

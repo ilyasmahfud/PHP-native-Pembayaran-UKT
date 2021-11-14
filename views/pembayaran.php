@@ -36,8 +36,8 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 
 <body class="forms-sections">
@@ -45,14 +45,14 @@
   <?php require_once('../config.php');
   $cek = count($_GET);
   $status = $_GET['username'];
-    if ($cek > 0) {
-        $status = $_GET['username'];
-        # code...
-        if (!(empty($status))) { 
-        } 
-    } else {
-      header('location: landing-page.php');
+  if ($cek > 0) {
+    $status = $_GET['username'];
+    # code...
+    if (!(empty($status))) {
     }
+  } else {
+    header('location: landing-page.php');
+  }
   ?>
 
   <!-- Navbar Light -->
@@ -749,13 +749,24 @@
           <div class="card card-body d-flex justify-content-center shadow-lg p-5 blur align-items-center">
             <h3 class="text-center">Form Pembayaran</h3>
             <form enctype="multipart/form-data" role="form" id="contact-form" method="post" action='../process/pembayaran.php?username=<?php echo $_GET["username"]; ?>' autocomplete="off">
-              <?php 
-                $username = $_GET["username"];
-                $queryCekUsername = "SELECT mahasiswa.NIM AS NIM, mahasiswa.nama_mahasiswa AS nama, pembayaran.nominal AS nominal, pembayaran.status AS status_pembayaran FROM mahasiswa JOIN pembayaran 
+              <?php
+              $username = $_GET["username"];
+              $queryCekUsername = "SELECT mahasiswa.NIM AS NIM, mahasiswa.nama_mahasiswa AS nama, pembayaran.nominal AS nominal, pembayaran.status AS status_pembayaran FROM mahasiswa JOIN pembayaran 
                 ON pembayaran.NIM = mahasiswa.NIM AND username = '$username'";
 
-                $hasilQuery = mysqli_query($koneksi, $queryCekUsername);
-                $data = mysqli_fetch_array($hasilQuery);
+              $hasilQuery = mysqli_query($koneksi, $queryCekUsername);
+              $data = mysqli_fetch_array($hasilQuery);
+
+              // echo $hasilQuery->{'num_rows'};
+              if ($hasilQuery->{'num_rows'} === 0) {
+                $queryCekUsername = "SELECT NIM, nama_mahasiswa AS nama
+                FROM mahasiswa WHERE username LIKE '$username'";
+
+                $hasilQueri = mysqli_query($koneksi, $queryCekUsername);
+                $data = mysqli_fetch_array($hasilQueri);
+                // $data['nominal'] == "univ_belum_pembukaan";
+              }
+              // print_r($hasilQuery);
               ?>
 
               <div class="card-body">
@@ -790,6 +801,11 @@
                 <div class="mb-4">
                   <label>Nominal</label>
                   <div class="input-group">
+                    <?php
+                    if ($hasilQuery->{'num_rows'} === 0) {
+                      echo "<input disabled value='Belum waktunya pembayaran' type='number' class='form-control' placeholder='Hubungi universitasmu'>";
+                    }
+                    ?>
                     <input disabled value='<?php echo $data['nominal'] ?>' type="number" class="form-control" placeholder="">
                   </div>
                 </div>
@@ -801,34 +817,65 @@
                     <div class="input-group mb-4">
                       <!-- echo "<input value='". $status."' disabled class='form-control bg-gradient-danger' aria-label='First Name...' type='text'>"; -->
                       <?php
-                      
-                      if ($data['status_pembayaran']==="belum dibayar") {
-                        $status = "Belum dibayar";
-                        echo "<span class='badge bg-gradient-danger p-2'>".$status."</span>";
-                      } elseif ($data['status_pembayaran']==="sudah membayar") {
-                        $status = "sudah dibayar";
-                        echo "<span class='badge bg-gradient-warning p-2'>".$status."</span>"."<hr>"; 
-                        echo "<span class='badge bg-gradient-info p-2'>Belum dikonfirmasi</span>";
-                      } elseif ($data['status_pembayaran']==="sudah terkonfirmasi") {
-                        $status = "sudah terkonfirmasi";
-                        echo "<span class='badge bg-gradient-success p-2'>".$status."</span>";
+                      if ($hasilQuery->{'num_rows'} === 0) {
+                        $status = "belum waktunya membayar";
+                        echo "<span class='badge bg-gradient-info p-2'>" . $status . "</span>";
+                      } else {
+                        if ($data['status_pembayaran'] === "belum dibayar") {
+                          $status = "Belum dibayar";
+                          echo "<span class='badge bg-gradient-danger p-2'>" . $status . "</span>";
+                        } elseif ($data['status_pembayaran'] === "sudah membayar") {
+                          $status = "sudah dibayar";
+                          echo "<span class='badge bg-gradient-warning p-2'>" . $status . "</span>" . "<hr>";
+                          echo "<span class='badge bg-gradient-info p-2'>Belum dikonfirmasi</span>";
+                        } elseif ($data['status_pembayaran'] === "sudah terkonfirmasi") {
+                          $status = "sudah terkonfirmasi";
+                          echo "<span class='badge bg-gradient-success p-2'>" . $status . "</span>";
+                        }
                       }
                       ?>
                     </div>
-                    
+
                   </div>
                   <div class="col-md-6 ps-2">
-                  <label for="Nama">Bukti Pembayaran</label>
-                  <div class="custom-file">
-                    <input style="font-size:12px" name="bukti_pembayaran" type="file" class="btn btn-light" id="customFile">
-                    <!-- <label class="custom-file-label" for="customFile">Choose image</label> -->
+                    <label for="Nama">Bukti Pembayaran</label>
+                    <div class="custom-file">
+                      <?php
+                      if ($hasilQuery->{'num_rows'} === 0) {
+                        echo "<input disabled name='bukti_pembayaran' type='file' class='btn btn-light' id='customFile'>
+                        <style>
+                          #customFile {
+                            
+                            font-size: 11px;
+                          }
+                        </style>
+                        ";
+                      } else {
+                        echo "<input name='bukti_pembayaran' type='file' class='btn btn-light' id='customFile'>
+                        <style>
+                          #customFile {
+                            
+                            font-size: 11px;
+                          }
+                        </style>
+                        ";
+                      }
+                      ?>
+                      <!-- <input style="font-size:12px" name="bukti_pembayaran" type="file" class="btn btn-light" id="customFile"> -->
+                      <!-- <label class="custom-file-label" for="customFile">Choose image</label> -->
                     </div>
                   </div>
                 </div>
 
                 <div class="form-group mb-4">
                   <label>Catatan</label>
-                  <textarea name="catatan" class="form-control" id="message" rows="4"></textarea>
+                  <?php
+                  if ($hasilQuery->{'num_rows'} === 0) {
+                    echo "<textarea disabled name='catatan' class='form-control' id='message' rows='4'></textarea>";
+                  } else {
+                    echo "<textarea name='catatan' class='form-control' id='message' rows='4'></textarea>";
+                  }
+                  ?>
                 </div>
                 <div class="row">
                   <div class="col-md-12">
@@ -838,7 +885,14 @@
                     </div> -->
                   </div>
                   <div class="col-md-12">
-                    <button type="submit" class="btn bg-gradient-dark w-100">Lakukan Pembayaran</button>
+                    <?php
+                    if ($hasilQuery->{'num_rows'} === 0) {
+                      echo "<button disabled type='submit' class='btn bg-gradient-primary w-100'>Lakukan Pembayaran</button>";
+                    } else {
+                      echo "<button type='submit' class='btn bg-gradient-primary w-100'>Lakukan Pembayaran</button>";
+                    }
+                    ?>
+                    <!-- <button type="submit" class="btn bg-gradient-primary w-100">Lakukan Pembayaran</button> -->
                   </div>
                 </div>
               </div>

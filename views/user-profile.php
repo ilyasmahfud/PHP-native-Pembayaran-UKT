@@ -35,24 +35,28 @@ Coded by www.creative-tim.com
 </head>
 
 <body class="blog-author bg-gray-100">
-  
-<?php
-$cek = count($_GET);
-$status = $_GET['username'];
+
+  <?php
+  $cek = count($_GET);
+  $status = $_GET['username'];
   if ($cek > 0) {
-      $status = $_GET['username'];
-      # code...
-      if (!(empty($status))) { 
-      } 
+    $status = $_GET['username'];
+    # code...
+    if (!(empty($status))) {
+      if (!(empty($status))) {
+        if (!(empty($status))) {
+        }
+      }
+    }
   } else {
     header('location: landing-page.php');
   }
-?>
+  ?>
 
   <!-- Navbar Light -->
   <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
     <div class="container">
-      <a class="navbar-brand" href='home.php?username=<?php echo $_GET['username']?>' rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
+      <a class="navbar-brand" href='home.php?username=<?php echo $_GET['username'] ?>' rel="tooltip" title="Designed and Coded by Creative Tim" data-placement="bottom">
         Home
       </a>
       <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
@@ -726,7 +730,7 @@ $status = $_GET['username'];
             </a> -->
           </li>
           <li class="nav-item my-auto ms-3 ms-lg-0">
-            <a href='pembayaran.php?username=<?php echo $_GET["username"]?>' class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0"> Bayar </a>
+            <a href='pembayaran.php?username=<?php echo $_GET["username"] ?>' class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0"> Bayar </a>
           </li>
         </ul>
       </div>
@@ -735,7 +739,7 @@ $status = $_GET['username'];
   <!-- End Navbar -->
   <!-- START Testimonials w/ user image & text & info -->
   <section class="py-sm-7 position-relative">
-  <?php
+    <?php
     require_once('../config.php');
 
     $username = $_GET['username'];
@@ -753,13 +757,13 @@ $status = $_GET['username'];
     // print_r($data);
     // echo $data['NIM'];    
     // echo $data['foto_profil'];
-  ?>
+    ?>
     <div class="container">
       <div class="row">
         <div class="col-12 mx-auto">
           <div class="row py-lg-7 py-5">
             <div class="col-lg-3 col-md-5 position-relative my-auto">
-              <img class="img border-radius-lg max-width-200 w-100 position-relative z-index-2" src="<?php echo $data['foto_profil'] ?>" alt="bruce">
+              <img class="img border-radius-lg max-width-200 w-100 position-relative z-index-2" src="<?php echo $data['foto_profil'] ?>" alt="foto <?php echo $data['nama_mahasiswa'] ?> belum diupdate">
             </div>
             <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mt-sm-0 mt-4">
               <div class="d-flex justify-content-between align-items-center mb-2">
@@ -847,60 +851,60 @@ $status = $_GET['username'];
 
                   <table class="table">
                     <!-- <caption>List of users</caption> -->
-                      <tr>
-                        <th >Perubahan Terakhir</th>
-                        <th >Nominal</th>
-                        <th >Status</th>
-                      </tr>
-                      <?php
-                        $NIM = $data['NIM'];
-                        $queryGetHistory = "SELECT * FROM pembayaran WHERE NIM LIKE '$NIM'";
-                        $cek = mysqli_query($koneksi, $queryGetHistory);
+                    <tr>
+                      <th>Perubahan Terakhir</th>
+                      <th>Nominal</th>
+                      <th>Status</th>
+                    </tr>
+                    <?php
+                    $NIM = $data['NIM'];
+                    $queryGetHistory = "SELECT * FROM pembayaran WHERE NIM LIKE '$NIM'";
+                    $cek = mysqli_query($koneksi, $queryGetHistory);
 
-                        if ($query = mysqli_query($koneksi, $queryGetHistory)) {
-                          while ($data = mysqli_fetch_array($query)) {
-                            if ($data['status']==="belum dibayar") {
-                              # code...
-                              echo "
+                    if ($query = mysqli_query($koneksi, $queryGetHistory)) {
+                      while ($data = mysqli_fetch_array($query)) {
+                        if ($data['status'] === "belum dibayar") {
+                          # code...
+                          echo "
                                   <tr>
                                       <td>" . $data['updated_at'] . "</td>
                                       <td>" . $data['nominal'] . "</td>
-                                      <td><span class='badge bg-gradient-danger p-2'>".$data['status']."</span></td>
+                                      <td><span class='badge bg-gradient-danger p-2'>" . $data['status'] . "</span></td>
                                   </tr>
                                   ";
-                            } elseif ($data['status']==="sudah membayar") {
-                              # code...
-                              echo "
+                        } elseif ($data['status'] === "sudah membayar") {
+                          # code...
+                          echo "
                                   <tr>
                                       <td>" . $data['updated_at'] . "</td>
                                       <td>" . $data['nominal'] . "</td>
-                                      <td><span class='badge bg-gradient-warning p-2'>".$data['status']."</span></td>
+                                      <td><span class='badge bg-gradient-warning p-2'>" . $data['status'] . "</span></td>
                                   </tr>";
-                              echo "
+                          echo "
                                   <tr>
                                       <td></td>
                                       <td></td>
                                       <td><span class='badge bg-gradient-info p-2'>belum dikonfirmasi</span></td>
                                   </tr>
                                   ";
-                            } elseif ($data['status']==="sudah membayar") {
-                              # code...
-                              echo "
+                        } elseif ($data['status'] === "sudah membayar") {
+                          # code...
+                          echo "
                                   <tr>
                                       <td>" . $data['updated_at'] . "</td>
                                       <td>" . $data['nominal'] . "</td>
                                       <td><span class='badge bg-gradient-succes p-2'>sudah dikonfirmasi</span></td>
                                   </tr>";
-                            }
-                          }
-                      } else {
-                          echo "
+                        }
+                      }
+                    } else {
+                      echo "
                               <tr>
                                   <td colspan=8>Data tidak ditemukan</td>
                               </tr>
                               ";
-                      }
-                      ?>
+                    }
+                    ?>
                   </table>
 
                   <!-- <div class="card-header px-4 py-sm-5 py-3">
