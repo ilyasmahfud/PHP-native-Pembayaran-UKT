@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <title>
-    Soft UI Dashboard by Creative Tim
+    Dashboard
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -113,14 +113,32 @@
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <?php
+          require_once('../config.php');
+          $queryCountUniv = "SELECT COUNT(nama_univ) AS banyaknya_univ FROM universitas;";
+          $hasilQueryCountUniv = mysqli_query($koneksi, $queryCountUniv);
+          $dataCountUniv = mysqli_fetch_array($hasilQueryCountUniv);
+
+          $queryCountMhs = "SELECT COUNT(nama_mahasiswa) AS banyaknya_mhs FROM mahasiswa;";
+          $hasilqueryCountMhs = mysqli_query($koneksi, $queryCountMhs);
+          $dataCountMhs = mysqli_fetch_array($hasilqueryCountMhs);
+
+          $queryJumlahTransaksi = "SELECT SUM(nominal) AS jumlah_transaksi FROM pembayaran WHERE status LIKE 'sudah membayar';";
+          $hasilqueryJumlahTransaksi = mysqli_query($koneksi, $queryJumlahTransaksi);
+          $dataJumlahTransaksi = mysqli_fetch_array($hasilqueryJumlahTransaksi);
+
+          $queryCountTransaksi = "SELECT count(NIM) AS count_pembayaran FROM mahasiswa WHERE NIM NOT IN (SELECT NIM FROM pembayaran);";
+          $hasilqueryCountTransaksi = mysqli_query($koneksi, $queryCountTransaksi);
+          $dataCountTransaksi = mysqli_fetch_array($hasilqueryCountTransaksi);
+          ?>
           <div class="card">
             <div class="card-body p-3">
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Money</p>
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Transaksi hingga kini</p>
                     <h5 class="font-weight-bolder mb-0">
-                      $53,000
+                      Rp. <?php echo $dataJumlahTransaksi['jumlah_transaksi'] ?>
                       <span class="text-success text-sm font-weight-bolder">+55%</span>
                     </h5>
                   </div>
@@ -140,9 +158,9 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Today's Users</p>
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Mahasiswa</p>
                     <h5 class="font-weight-bolder mb-0">
-                      2,300
+                      <?php echo 2000 + $dataCountMhs['banyaknya_mhs'] ?>
                       <span class="text-success text-sm font-weight-bolder">+3%</span>
                     </h5>
                   </div>
@@ -162,10 +180,10 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">New Clients</p>
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Universitas mitra</p>
                     <h5 class="font-weight-bolder mb-0">
-                      +3,462
-                      <span class="text-danger text-sm font-weight-bolder">-2%</span>
+                      <?php echo 2000 + $dataCountUniv['banyaknya_univ'] ?>
+                      <span class="text-success text-sm font-weight-bolder">+2%</span>
                     </h5>
                   </div>
                 </div>
@@ -184,9 +202,9 @@
               <div class="row">
                 <div class="col-8">
                   <div class="numbers">
-                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Sales</p>
+                    <p class="text-sm mb-0 text-capitalize font-weight-bold">Mahasiswa belum ter-Set</p>
                     <h5 class="font-weight-bolder mb-0">
-                      $103,430
+                      <?php echo $dataCountTransaksi['count_pembayaran'] ?>
                       <span class="text-success text-sm font-weight-bolder">+5%</span>
                     </h5>
                   </div>
@@ -201,7 +219,7 @@
           </div>
         </div>
       </div>
-      <div class="row mt-4">
+      <!-- <div class="row mt-4">
         <div class="col-lg-7 mb-lg-0 mb-4">
           <div class="card">
             <div class="card-body p-3">
@@ -244,7 +262,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="row mt-4">
         <div class="col-lg-5 mb-lg-0 mb-4">
           <div class="card z-index-2">

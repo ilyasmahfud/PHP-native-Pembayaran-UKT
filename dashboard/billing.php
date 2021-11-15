@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="assets/img/favicon.png">
   <title>
-    Soft UI Dashboard by Creative Tim
+    Pembayaran
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -195,6 +195,11 @@
                 <div class="card-header pb-0 p-3">
                   <div class="row">
                     <div class="col-6 d-flex align-items-center">
+                      <a href="confirmed.php?username=<?php echo $username ?>">
+                        <button type="button" class="btn bg-gradient-success btn-block">
+                          Cek Mahasiswa terkonfirmasi
+                        </button>
+                      </a>
                     </div>
                     <div class="col-6 text-end">
                       <!-- Button trigger modal -->
@@ -267,7 +272,7 @@
                   <h6 class="mb-0">Mahasiswa belum di SET</h6>
                 </div>
                 <div class="col-6 text-end">
-                  <a href='not-set.php?username="<?php echo $username ?>"'>
+                  <a href="not-set.php?username=<?php echo $username ?>">
                     <button class="btn btn-outline-primary btn-sm mb-0">View All</button>
                   </a>
                 </div>

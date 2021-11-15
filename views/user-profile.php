@@ -82,7 +82,6 @@
               <img src="assets/img/down-arrow-dark.svg" alt="down-arrow" class="arrow ms-1">
             </a> -->
             <ul class="dropdown-menu dropdown-menu-animation dropdown-lg mt-0 mt-lg-3 p-3 border-radius-lg" aria-labelledby="dropdownMenuDocs">
-
             </ul>
           </li>
           <li class="nav-item ms-lg-auto">
@@ -90,6 +89,9 @@
               <i class="fa fa-github me-1"></i>
               <p class="d-inline text-sm z-index-1 font-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Star us on Github">Github</p>
             </a> -->
+          <li class="nav-item my-auto ms-3 ms-lg-0">
+            <a href='login.php?' class="btn btn-sm  bg-gradient-danger  btn-round mb-0 me-1 mt-2 mt-md-0"> Keluar </a>
+          </li>
           </li>
           <li class="nav-item my-auto ms-3 ms-lg-0">
             <a href='pembayaran.php?username=<?php echo $_GET["username"] ?>' class="btn btn-sm  bg-gradient-primary  btn-round mb-0 me-1 mt-2 mt-md-0"> Bayar </a>

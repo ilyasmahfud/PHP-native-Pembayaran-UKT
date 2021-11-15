@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.png">
     <title>
-        User not set
+        Confirmed
     </title>
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -144,14 +144,13 @@
                                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">NIM</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Username</th>
                                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Kode Universitas</th>
-                                        <th class="text-secondary opacity-7"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
                                     $mahasiswa1 = [];
 
-                                    $queryAllMahaasiswa = "SELECT * FROM mahasiswa WHERE NIM NOT IN (SELECT NIM FROM pembayaran) ";
+                                    $queryAllMahaasiswa = "SELECT * FROM mahasiswa WHERE NIM IN (SELECT NIM FROM pembayaran WHERE `status` LIKE 'sudah terkonfirmasi') ";
 
                                     if ($hasilQueryAll = mysqli_query($koneksi, $queryAllMahaasiswa)) {
                                         while ($dataAll = mysqli_fetch_array($hasilQueryAll)) {
@@ -182,9 +181,6 @@
                                             </td>
                                             <td class='align-middle text-center'>
                                                 <span class='text-secondary text-xs font-weight-bold'>" . $value[4] . "</span>
-                                            </td>
-                                            <td class='align-middle'>
-                                                <button class='btn btn-link text-dark text-sm mb-0 px-0 ms-4' data-bs-toggle='modal' data-bs-target='#modal1" . $i . "'></i> SET NOW </button>
                                             </td>
                                         </tr>
 

@@ -92,8 +92,8 @@
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-8 text-center mx-auto my-auto">
-            <h1 class="text-white">Work with an amazing design</h1>
-            <p class="lead mb-4 text-white opacity-8">We’re constantly trying to express ourselves and actualize our dreams. If you have the opportunity to play this game</p>
+            <h1 class="text-white">Bayar UKT yok!</h1>
+            <p class="lead mb-4 text-white opacity-8">Kalau bisa sekarang ngapain nunggu kaya? Masuk dan temukan hal menarik disini</p>
             <a href="register.php">
               <button type="submit" class="btn bg-white text-dark">Create Account</button>
             </a>
