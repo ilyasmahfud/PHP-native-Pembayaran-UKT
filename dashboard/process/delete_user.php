@@ -12,8 +12,11 @@ $queryCekUsername = "SELECT mahasiswa.nama_mahasiswa FROM mahasiswa WHERE NIM LI
 
 $hasilQuery = mysqli_query($koneksi, $queryCekUsername);
 
+print_r($hasilQuery);
 $data = mysqli_fetch_array($hasilQuery);
 $data = $data['nama_mahasiswa'];
+
+echo $data;
 
 $queryDelete = "DELETE FROM mahasiswa WHERE NIM='$id'";
 

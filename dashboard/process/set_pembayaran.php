@@ -3,8 +3,8 @@ require_once('../../config.php');
 
 $username = $_GET['username'];
 $nominal = $_POST['nominal'];
-$nama_univ = $_POST['id_univ'];
-$NIM = $_POST['NIM_user'];
+// $nama_univ = $_POST['id_univ'];
+$NIM = $_POST['NIM'];
 
 echo $NIM;
 $queryCekId = "SELECT NIM FROM pembayaran WHERE NIM LIKE '$NIM'";
@@ -14,7 +14,7 @@ echo $username;
 if (!empty($cekId->{'num_rows'})) {
     header('location: ../billing.php?username=' . $username . ' &status=mahasiswa_sudah_ter_set');
 } else {
-    $queryInput = "INSERT INTO pembayaran ( `NIM`, `nama_univ`, `nominal`,`status`) VALUES ( '$NIM', '$nama_univ', '$nominal','belum dibayar');";
+    $queryInput = "INSERT INTO pembayaran ( `NIM`, `nominal`,`status`) VALUES ( '$NIM', '$nominal','belum dibayar');";
     $queryInput = mysqli_query($koneksi, $queryInput);
     header('location: ../billing.php?username=' . $username . ' &status=berhasil_membuat');
 } 

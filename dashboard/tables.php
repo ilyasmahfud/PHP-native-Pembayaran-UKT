@@ -20,13 +20,16 @@
   <!-- CSS Files -->
   <link id="pagestyle" href="assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
 
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+  <!-- data table -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/dataTables.bulma.min.css">
 
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bulma.min.js"></script>
 </head>
 
-<body class="g-sidenav-show  bg-gray-100">
+<body class="g-sidenav-show  bg-gray-100" style="overflow: hidden;" style="overflow: hidden;">
   <?php
   require_once('../config.php');
   $cek = count($_GET);
@@ -49,7 +52,7 @@
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link  " href='dashboard.php?username=<?php echo $username ?>'>
-            <div class=" icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <div class=" icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center" style="height:40px;width:40px;padding:0px;margin:0px">
               <svg width="12px" height="12px" viewBox="0 0 45 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>shop </title>
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -69,7 +72,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link  active" href='tables.php?username=<?php echo $username ?>'>
-            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center" style="height:40px;width:40px;padding:0px;margin:0px">
               <svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>office</title>
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -89,7 +92,7 @@
         </li>
         <li class="nav-item">
           <a class="nav-link  " href='billing.php?username=<?php echo $username ?>'>
-            <div class=" icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+            <div class=" icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center" style="height:40px;width:40px;padding:0px;margin:0px">
               <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>credit-card</title>
                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -121,10 +124,9 @@
         <div class="col-12">
           <div class="card mb-4">
             <div class="card-header pb-0">
-              <div class="row">
-                <div class="col-6">
-                  <h6>Table mahasiswa</h6>
-                </div>
+              <div class="row mb-4">
+                <h6>Tabel mahasiswa</h6>
+
                 <!-- <div class="col-6 p-0">
                   <div>
                     <div class="input-group">
@@ -141,7 +143,7 @@
             </div>
             <div class="card-body ">
               <div class="table-responsive" style="padding: 0px">
-                <table class="table align-items-center mb-0" id="table" style="border: none">
+                <table class="table is-striped" id="table" style="border: none">
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mahasiswa</th>
@@ -158,6 +160,7 @@
 
                     if ($hasilQuery = mysqli_query($koneksi, $queryCekUsername)) {
                       while ($data = mysqli_fetch_array($hasilQuery)) {
+
                         echo "
                         <tr  style='border: none'>
                           <td>
@@ -182,12 +185,14 @@
                             <span class='text-secondary text-xs font-weight-bold'>" . $data['tgl_lahir'] . "</span>
                           </td>
                           <td class='align-middle'>
-                            <a href='#' onclick='validation(" . $data['NIM'] . ")' class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user'>
+                            <a href='process/delete_user.php?username=" . $username . " &NIM=" . $data['NIM'] . "'  class='text-secondary font-weight-bold text-xs' data-toggle='tooltip' data-original-title='Edit user'>
                               Delete
                             </a>
                           </td>
                         </tr>
                         ";
+                        // onclick='validation(" . $data['NIM'] . ")'
+                        // process/delete_user.php?username=" . $username . " &NIM=" . $data['NIM'] . "
                       }
                     } else {
                       echo "
@@ -259,7 +264,8 @@
           )
           // var delayInMilliseconds = 3000;
           // setTimeout(function() {
-          //   window.location.href = 'process/delete_user.php?username=" <?php echo $username ?> " &NIM=" <? echo $data['NIM '] ?>' + param;
+          // username=" <?php echo $username ?> " &NIM=" <? echo $data['NIM '] ?>
+          window.location.href = 'process/delete_user.php?' + param;
           // }, delayInMilliseconds);
         } else if (
           /* Read more about handling dismissals below */

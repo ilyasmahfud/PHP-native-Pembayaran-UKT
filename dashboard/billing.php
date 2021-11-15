@@ -21,11 +21,15 @@
   <link id="pagestyle" href="assets/css/soft-ui-dashboard.css?v=1.0.3" rel="stylesheet" />
 </head>
 
-<body class="g-sidenav-show  bg-gray-100">
+<body class="g-sidenav-show  bg-gray-100" style="overflow: hidden;">
   <?php
   require_once('../config.php');
   $cek = count($_GET);
   if ($cek > 0) {
+    // if (condition) {
+    //   # code...
+    // } else {
+    // }
   } else {
     header('location: sign-in.php');
   }
@@ -191,6 +195,8 @@
                 <div class="card-header pb-0 p-3">
                   <div class="row">
                     <div class="col-6 d-flex align-items-center">
+                    </div>
+                    <div class="col-6 text-end">
                       <!-- Button trigger modal -->
                       <button type="button" class="btn bg-gradient-primary btn-block" data-bs-toggle="modal" data-bs-target="#exampleModalSignUp">
                         Tambah Universitas Baru
@@ -227,9 +233,7 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-6 text-end">
-                      <a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Card</a>
+                      <!-- <a class="btn bg-gradient-dark mb-0" href="javascript:;"><i class="fas fa-plus"></i>&nbsp;&nbsp;Add New Card</a> -->
                     </div>
                   </div>
                 </div>
@@ -260,10 +264,12 @@
             <div class="card-header pb-0 p-3">
               <div class="row">
                 <div class="col-6 d-flex align-items-center">
-                  <h6 class="mb-0">Belum diatur</h6>
+                  <h6 class="mb-0">Mahasiswa belum di SET</h6>
                 </div>
                 <div class="col-6 text-end">
-                  <button class="btn btn-outline-primary btn-sm mb-0">View All</button>
+                  <a href='not-set.php?username="<?php echo $username ?>"'>
+                    <button class="btn btn-outline-primary btn-sm mb-0">View All</button>
+                  </a>
                 </div>
               </div>
             </div>
@@ -271,72 +277,82 @@
               </tbody>
               <ul class="list-group">
                 <?php
-                $queryAllMahaasiswa = "SELECT * FROM mahasiswa ORDER BY id_univ LIMIT 5";
+                $mahasiswa1 = [];
+
+                $queryAllMahaasiswa = "SELECT * FROM mahasiswa WHERE NIM NOT IN (SELECT NIM FROM pembayaran) LIMIT 5";
 
                 if ($hasilQueryAll = mysqli_query($koneksi, $queryAllMahaasiswa)) {
                   while ($dataAll = mysqli_fetch_array($hasilQueryAll)) {
-                    $queryCekNIM = "SELECT * FROM pembayaran ";
-                    if ($hasilQueryNIM = mysqli_query($koneksi, $queryCekNIM)) {
-                      while ($dataNIM = mysqli_fetch_array($hasilQueryNIM)) {
-                        if ($dataAll['NIM'] !== $dataNIM['NIM']) {
-                          $id_univ = $dataAll['id_univ'];
-                          $queryUniv = "SELECT * FROM universitas WHERE NIU LIKE '$id_univ' ";
-                          $queryUniv = mysqli_query($koneksi, $queryUniv);
-                          $dataUniv = mysqli_fetch_array($queryUniv);
-
-                          $user = $dataAll['username'];
-                          $id_univ = $dataAll['id_univ'];
-                          $nama_univ = $dataUniv['nama_univ'];
-                          $NIM_user = $dataAll['NIM'];
-
-                          echo "
-                            <li class='list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg'>
-                            <div class='d-flex flex-column'>
-                              <h6 class='mb-1 text-dark font-weight-bold text-sm'>" . $dataAll['nama_mahasiswa'] . "</h6>
-                              <span class='text-xs'>" . $user . "</span>
-                            </div>
-                            <div class='d-flex align-items-center text-sm'>
-                              " . $dataAll['id_univ'] . "
-                              <button class='btn btn-link text-dark text-sm mb-0 px-0 ms-4' data-bs-toggle='modal' data-bs-target='#exampleModalMessage'></i> SET NOW </button>
-                            </div>
-                          </li>
-
-                          <!-- Modal -->
-                          <div class='modal fade' id='exampleModalMessage' tabindex='-1' role='dialog' aria-labelledby='exampleModalMessageTitle' aria-hidden='true'>
-                            <div class='modal-dialog modal-dialog-centered' role='document'>
-                              <div class='modal-content'>
-                                <div class='modal-header'>
-                                  <h5 class='modal-title' id='exampleModalLabel'>Sudah saatnya pembayaran UKT di " . $dataUniv['nama_univ'] . " Yaa?</h5>
-                                  <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'>
-                                    <span aria-hidden='true'>×</span>
-                                  </button>
-                                </div>
-                                <div class='modal-body'>
-                                  <form action='process/set_pembayaran.php?username=" . $username . "' method='post'>
-                                    <div class='form-group'>
-                                      <label for='recipient-name' class='col-form-label'>Nominal " . $user . "</label>
-                                      <input name='nominal' type='number' min=1 class='form-control' placeholder='Masukkan Nominal' id='recipient-name'>
-                                    </div>
-                                    <div class='form-group'>
-                                      <label for='message-text' class='col-form-label'>Universitas</label>
-                                      <input name='nama_univ' disabled class='form-control' id='message-text' value='" . $nama_univ . "' placeholder='" . $id_univ . " - " . $nama_univ . "'</input>
-                                      <input name='NIM' type='text' value='" . $NIM_user . "' style='display: none'>
-                                    </div>
-                                    <div class='modal-footer'>
-                                      <button type='button' class='btn bg-gradient-secondary' data-bs-dismiss='modal'>Belum</button>
-                                      <button type='submit' class='btn bg-gradient-primary'>Ya, Sudah</button>
-                                    </div>
-                                  </form>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          ";
-                          break;
-                        }
-                      }
-                    }
+                    $mahasiswa1[] = [
+                      $dataAll['nama_mahasiswa'], $dataAll['username'], $dataAll['id_univ'], $dataAll['NIM']
+                    ];
                   }
+
+                  foreach ($mahasiswa1 as $i => $value) {
+                    # code...
+                    // $id_univ = $dataAll['id_univ'];
+                    // $queryUniv = "SELECT * FROM universitas WHERE NIU LIKE '$id_univ' ";
+                    // $queryUniv = mysqli_query($koneksi, $queryUniv);
+                    // $dataUniv = mysqli_fetch_array($queryUniv);
+
+                    // $user = $dataAll['username'];
+                    // $id_univ = $dataAll['id_univ'];
+                    // $nama_univ = $dataUniv['nama_univ'];
+                    // $NIM_user = $dataAll['NIM'];
+
+                    echo "
+                      <li class='list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg'>
+                      <div class='d-flex flex-column'>
+                        <h6 class='mb-1 text-dark font-weight-bold text-sm'>" . $value[0] . "</h6>
+                        <span class='text-xs'>" . $value[1] . "</span>
+                      </div>
+                      <div class='d-flex align-items-center text-sm'>
+                        " . $value[2] . "
+                        <button class='btn btn-link text-dark text-sm mb-0 px-0 ms-4' data-bs-toggle='modal' data-bs-target='#modal1" . $i . "'></i> SET NOW </button>
+                      </div>
+                    </li>
+
+                    <!-- Modal -->
+                    <div class='modal fade' id='modal1" . $i . "' tabindex='-1' role='dialog' aria-labelledby='exampleModalMessageTitle' aria-hidden='true'>
+                      <div class='modal-dialog modal-dialog-centered' role='document'>
+                        <div class='modal-content'>
+                          <div class='modal-header'>
+                            <h5 class='modal-title' id='exampleModalLabel'>Sudah saatnya pembayaran UKT " . $value[0] . " Yaa?</h5>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'>
+                              <span aria-hidden='true'>×</span>
+                            </button>
+                          </div>
+                          <div class='modal-body'>
+                            <form action='process/set_pembayaran.php?username=" . $value[0] . "' method='post'>
+                              <div class='form-group'>
+                                <label for='recipient-name' class='col-form-label'>Nominal</label>
+                                <input name='nominal' type='number' min=1 class='form-control' placeholder='Masukkan Nominal' id='recipient-name'>
+                              </div>
+                              <div class='form-group'>
+                                <label for='message-text' class='col-form-label'>NIM</label>
+                                <input name='nama_univ' disabled class='form-control' id='message-text' value='" . $value[3] . "' </input>
+                                <input name='NIM' type='text' value='" . $value[3] . "' style='display: none'>
+                              </div>
+                              <div class='modal-footer'>
+                                <button type='button' class='btn bg-gradient-secondary' data-bs-dismiss='modal'>Belum</button>
+                                <button type='submit' class='btn bg-gradient-primary'>Ya, Sudah</button>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    ";
+                  }
+                  // while ($dataAll = mysqli_fetch_array($hasilQueryAll)) {
+                  //   $queryCekNIM = "SELECT * FROM pembayaran ";
+                  //   if ($hasilQueryNIM = mysqli_query($koneksi, $queryCekNIM)) {
+                  //     while ($dataNIM = mysqli_fetch_array($hasilQueryNIM)) {
+                  //       if ($dataAll['NIM'] !== $dataNIM['NIM']) {
+                  //       }
+                  //     }
+                  //   }
+                  // }
                 } else {
                   echo "
                       <li>
@@ -360,42 +376,50 @@
             <div class="card-body pt-4 p-3">
               <ul class="list-group">
                 <?php
+                $mahasiswa = [];
+
                 $queryCekUsername = "SELECT mahasiswa.nama_mahasiswa, mahasiswa.email, mahasiswa.username, universitas.nama_univ, pembayaran.catatan, pembayaran.bukti_pembayaran, pembayaran.id AS id_pembayaran, pembayaran.nominal AS nominal FROM mahasiswa JOIN universitas ON universitas.NIU = mahasiswa.id_univ JOIN pembayaran ON pembayaran.NIM = mahasiswa.NIM WHERE pembayaran.status = 'sudah membayar' ";
 
                 if ($hasilQuery = mysqli_query($koneksi, $queryCekUsername)) {
                   while ($data = mysqli_fetch_array($hasilQuery)) {
+                    $mahasiswa[] = [
+                      $data['nama_mahasiswa'], $data['nama_univ'], $data['email'], $data['username'], $data['id_pembayaran'], $data['catatan'], $data['nominal'], $data['bukti_pembayaran']
+                    ];
+                  }
+                  foreach ($mahasiswa as $i => $value) {
+                    # code...
                     echo "
                         <li class='list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg'>
                           <div class='d-flex flex-column'>
-                            <h6 class='mb-3 text-sm'>" . $data['nama_mahasiswa'] . "</h6>
-                            <span class='mb-2 text-xs'>Universitas: <span class='text-dark font-weight-bold ms-sm-2'>" . $data['nama_univ'] . "</span></span>
-                            <span class='mb-2 text-xs'>Email: <span class='text-dark ms-sm-2 font-weight-bold'>" . $data['email'] . "</span></span>
-                            <span class='text-xs'>Username: <span class='text-dark ms-sm-2 font-weight-bold'>" . $data['username'] . "</span></span>
+                            <h6 class='mb-3 text-sm'>" . $value[0] . "</h6>
+                            <span class='mb-2 text-xs'>Universitas: <span class='text-dark font-weight-bold ms-sm-2'>" . $value[1] . "</span></span>
+                            <span class='mb-2 text-xs'>Email: <span class='text-dark ms-sm-2 font-weight-bold'>" . $value[2] . "</span></span>
+                            <span class='text-xs'>Username: <span class='text-dark ms-sm-2 font-weight-bold'>" . $value[3] . "</span></span>
                           </div>
                           <div class='ms-auto text-end'>
-                            <a class='btn btn-link text-danger text-gradient px-3 mb-0' href='process/delete_konfirmasi.php?username=" . $username . " &id_pembayaran=" . $data['id_pembayaran'] . "'><i class='far fa-trash-alt me-2'></i>Delete</a>
-                            <a type'button' class='btn btn-link text-dark px-3 mb-0' data-bs-toggle='modal' data-bs-target='#exampleModalLong'><i class='fas fa-pencil-alt text-dark me-2' aria-hidden='true'></i>Edit</a>
+                            <a class='btn btn-link text-danger text-gradient px-3 mb-0' href='process/delete_konfirmasi.php?username=" . $value[3] . " &id_pembayaran=" . $value[4] . "'><i class='far fa-trash-alt me-2'></i>Delete</a>
+                            <a type'button' class='btn btn-link text-dark px-3 mb-0' data-bs-toggle='modal' data-bs-target='#modal2" . $i . "'><i class='fas fa-pencil-alt text-dark me-2' aria-hidden='true'></i>Edit</a>
                           </div>
                         </li>
 
                         <!-- Modal -->
-                        <div class='modal fade' id='exampleModalLong' tabindex='-1' role='dialog' aria-labelledby='exampleModalLongTitle' aria-hidden='true'>
+                        <div class='modal fade' id='modal2" . $i . "' tabindex='-1' role='dialog' aria-labelledby='exampleModalLongTitle' aria-hidden='true'>
                           <div class='modal-dialog' role='document'>
                             <div class='modal-content' style='width:700px'>
                               <div class='modal-header'>
-                                <h5 class='modal-title' id='exampleModalLongTitle'>Bukti Pembayaran " . $data['nama_mahasiswa'] . " - RP " . $data['nominal'] . "</h5>
+                                <h5 class='modal-title' id='exampleModalLongTitle'>Bukti Pembayaran " . $value[0] . " - RP " . $value[6] . "</h5>
                                 <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'>
                                   <span aria-hidden='true'>&times;</span>
                                 </button>
                               </div>
                               <div align='center' class='modal-body'>
-                                <img src='" . $data['bukti_pembayaran'] . "' alt='bukti pembayaran " . $data['nama_mahasiswa'] . "' style='width:600px'>
+                                <img src='" . $value[7] . "' alt='bukti pembayaran " . $value['0'] . "' style='width:600px'>
                                 <label for='recipient-name' class='col-form-label'>Catatan</label>
-                                <input value='" . $data['catatan'] . "' type='text' disabled class='form-control' placeholder='' id='recipient-name'>
+                                <input value='" . $value[5] . "' type='text' disabled class='form-control' placeholder='' id='recipient-name'>
                               </div>
                               <div class='modal-footer'>
                                   <button type='button' class='btn bg-gradient-danger' data-bs-dismiss='modal'>Tutup</button>
-                                  <a href='process/konfirmasi_pembayaran.php?username=" . $username . " &id_pembayaran=" . $data['id_pembayaran'] . " &mahasiswa=" . $data['nama_mahasiswa'] . "'>
+                                  <a href='process/konfirmasi_pembayaran.php?username=" . $username . " &id_pembayaran=" . $value[4] . " &mahasiswa=" . $value[0] . "'>
                                     <button type='submit' class='btn bg-gradient-primary'>Konfirmasi</button>
                                   </a>
                               </div>
